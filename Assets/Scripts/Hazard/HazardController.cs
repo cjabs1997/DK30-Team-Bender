@@ -16,9 +16,14 @@ public class HazardController : MonoBehaviour
     void Update()
     {
         // hardcode for testing
-        if(Input.GetMouseButtonDown(0)){
-            var relativeMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            hazard.StartSequence(this, BaseBody.position, relativeMousePosition);
+        // this.projectedMousePosition = (Vector2) Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        // var t = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        // data.to.Set(t.x, t.y);
+        if(Input.GetMouseButtonDown(0))
+        {
+            // Reason for struct is to keep references to to and from during firings
+
+            hazard.StartSequence(BaseBody.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), this);
         }
     }
 

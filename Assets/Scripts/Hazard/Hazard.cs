@@ -18,7 +18,7 @@ public class Hazard : ScriptableObject
 
     private Dictionary<System.Guid, List<GameObject>> sequences;
 
-    public void StartSequence(MonoBehaviour caller, Vector2 from, Vector2 to)
+    public void StartSequence(Vector2 from, Vector2 to, MonoBehaviour caller)
     {
         var objects = new List<GameObject>();
         for(int i = 0; i < unitCount; ++i){
@@ -26,8 +26,9 @@ public class Hazard : ScriptableObject
             objects.Add(obj);
             obj.SetActive(false);
         }
+        var data = new SequenceData(from, to, caller, speed, secondsBetweenProjectiles, objects);
         var clone = Instantiate(behavior);
-        clone.HandleSequence(caller, from, to, speed, secondsBetweenProjectiles, objects);
+        clone.HandleSequence(data);
     }
 
 }
