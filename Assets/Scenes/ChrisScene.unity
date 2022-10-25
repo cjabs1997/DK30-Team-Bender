@@ -327,9 +327,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 760778846}
-  - component: {fileID: 760778848}
   - component: {fileID: 760778849}
   - component: {fileID: 760778850}
+  - component: {fileID: 760778851}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -353,37 +353,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &760778848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 760778844}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8180c61d176c178419481046c8c4ba59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundMask:
-    useTriggers: 0
-    useLayerMask: 0
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 16
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0
-  initialJumpVelocity: 0
-  maxJumpHeight: 1
-  maxJumpTime: 0.5
-  isJumping: 0
-  gravity: 0
 --- !u!50 &760778849
 Rigidbody2D:
   serializedVersion: 4
@@ -431,6 +400,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &760778851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760778844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa134e85d919a43478773460ff9d483d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: {fileID: 11400000, guid: 5106d5da7ff7c0846a409f0d6aa0de77, type: 2}
+  m_Rigidbody2D: {fileID: 0}
+  m_Collider2D: {fileID: 0}
+  m_Animator: {fileID: 0}
+  stateFactory: {fileID: 0}
 --- !u!1 &1812107526
 GameObject:
   m_ObjectHideFlags: 0

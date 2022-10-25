@@ -31,6 +31,11 @@ public class StateController : MonoBehaviour
         //currentState = playerStateFactory.States[PlayerStateFactory.PlayerStates.idle]; // There might be a more elegant solution than this
     }
 
+    private void Start()
+    {
+        currentState.EnterState(this);
+    }
+
     private void Update()
     {
         //behavior.GetCommand();

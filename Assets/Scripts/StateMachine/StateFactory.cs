@@ -7,7 +7,7 @@ public class StateNotFoundException : System.Exception { }
 [CreateAssetMenu]
 public class StateFactory : ScriptableObject
 {
-    private Dictionary<State, BaseState> States;
+    private Dictionary<State, BaseState> States = new Dictionary<State, BaseState>();
 
     [SerializeField] private BaseState[] stateList;
 
