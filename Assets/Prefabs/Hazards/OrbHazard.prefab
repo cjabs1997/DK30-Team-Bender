@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: -4091481823330398089}
   - component: {fileID: -3612969693464241257}
   - component: {fileID: 4302462690564161444}
-  - component: {fileID: 5561390986649081536}
   m_Layer: 0
   m_Name: OrbHazard
   m_TagString: Untagged
@@ -120,19 +119,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d989f42a540d674c8f88b00ce16bfc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!111 &5561390986649081536
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1147129745373322987}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 27a4ef6554f58fa42aaeedcfceb506b3, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 27a4ef6554f58fa42aaeedcfceb506b3, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  rotate: 1
+  degreesPerSecond: 360

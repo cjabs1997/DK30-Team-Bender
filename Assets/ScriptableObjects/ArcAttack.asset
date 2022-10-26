@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d653fc935e953147b8345b1d44c237b, type: 3}
   m_Name: ArcAttack
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 0}
-  speed: 0
-  unitCount: 0
-  secondsBetweenProjectiles: 0
-  behavior: {fileID: 0}
+  projectilePrefab: {fileID: 1147129745373322987, guid: 4bc322721108a8f468542b0eac92abd7, type: 3}
+  speed: 700
+  unitCount: 5
+  secondsBetweenProjectiles: 0.3
+  behavior: {fileID: 11400000, guid: f447d3ed17704c7468580aa82a5e91f5, type: 2}

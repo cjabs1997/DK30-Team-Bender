@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class SequenceData
 {
-    private Vector2 to;
-    public Vector2 To => to;
+    private Transform to;
+    public Transform To => to;
     private Vector2 from;
     public Vector2 From => from;
     private MonoBehaviour caller;
@@ -15,16 +15,22 @@ public class SequenceData
     public float Speed => speed;
     private float secondsBetweenProjectiles;
     public float SecondsBetweenProjectiles => secondsBetweenProjectiles;
-    private List<GameObject> projectiles;
-    public List<GameObject> Projectiles => projectiles;
-    public SequenceData(Vector2 from, Vector2 to, MonoBehaviour caller, float speed, float secondsBetweenProjectiles, List<GameObject> projectiles)
+
+    private GameObject projectilePrefab;
+    public GameObject ProjectilePrefab => projectilePrefab;
+    // private List<GameObject> projectiles;
+    // public List<GameObject> Projectiles => projectiles;
+    private int projectileCount;
+    public int ProjectileCount => projectileCount;
+    public SequenceData(Vector2 from, Transform to, MonoBehaviour caller, float speed, float secondsBetweenProjectiles, int projectileCount, GameObject projectilePrefab)
     {
         this.from = from;
         this.to = to;
         this.caller = caller;
         this.speed = speed;
         this.secondsBetweenProjectiles = secondsBetweenProjectiles;
-        this.projectiles = projectiles;
+        this.projectileCount = projectileCount;
+        this.projectilePrefab = projectilePrefab;
     }
 }
 
