@@ -17,6 +17,7 @@ public class MoveCommand : HazardCommand
     public Vector2 From => from;
     private Vector2 to;
     public Vector2 To => to;
+    // private Transform toTransform;
     private float speed;
     public float Speed => speed;
 
@@ -26,6 +27,13 @@ public class MoveCommand : HazardCommand
         this.to = to;
         this.speed = speed;
     }
+
+    // public MoveCommand(Vector2 from, Transform to, float speed)
+    // {
+    //     this.from = from;
+    //     this.toTransform = to;
+    //     this.speed = speed;
+    // }
 
 }
 

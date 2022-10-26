@@ -14,7 +14,8 @@ public class HazardProjectile : MonoBehaviour
     private Vector2 CalculateVectorForce(Vector2 from, Vector2 to, float speed, float mass)
     {
         Vector2 direction = (to - from).normalized;
-        return mass * speed * direction;
+        float F = mass * (speed / Time.deltaTime);
+        return F * direction;
     }
 
     private IEnumerator Wait(float seconds)
@@ -40,7 +41,14 @@ public class HazardProjectile : MonoBehaviour
 
     private void HandleMove(MoveCommand command)
     {
-        // TODO
+        var m_RigidBody = this.GetComponent<Rigidbody2D>();
+
+        var delta = Vector2.MoveTowards(m_RigidBody.position, command.To, command.Speed * Time.deltaTime);
+        m_RigidBody.MovePosition(delta);
+        if(Vector2.Distance(m_RigidBody.position, command.To) <= 0.01f)
+        {
+            this.currentCommand = null;
+        }
     }
 
     private void HandleWait(WaitCommand command)
@@ -58,8 +66,7 @@ public class HazardProjectile : MonoBehaviour
             if(this.commands.Count > 0)
                 this.currentCommand = this.commands.Dequeue();
         }
-        Debug.Log("Handle Execute called");
-        Debug.Log(this.currentCommand);
+
         switch(this.currentCommand)
         {
             case FireCommand f:
@@ -85,7 +92,7 @@ public class HazardProjectile : MonoBehaviour
     }
     void FixedUpdate()
     {
-        // HandleExecuteCommand();
+        HandleExecuteCommand();
     }
 
     void Update()
@@ -94,7 +101,7 @@ public class HazardProjectile : MonoBehaviour
         {
             this.transform.Rotate(new Vector3(0, 0, degreesPerSecond) * Time.deltaTime);
         }
-        HandleExecuteCommand();
+        // HandleExecuteCommand();
     }
 
     void OnBecameInvisible()

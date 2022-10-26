@@ -18,8 +18,6 @@ public class SequenceData
 
     private GameObject projectilePrefab;
     public GameObject ProjectilePrefab => projectilePrefab;
-    // private List<GameObject> projectiles;
-    // public List<GameObject> Projectiles => projectiles;
     private int projectileCount;
     public int ProjectileCount => projectileCount;
     public SequenceData(Vector2 from, Transform to, MonoBehaviour caller, float speed, float secondsBetweenProjectiles, int projectileCount, GameObject projectilePrefab)

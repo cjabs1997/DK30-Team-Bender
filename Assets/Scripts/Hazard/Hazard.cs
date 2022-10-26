@@ -19,16 +19,8 @@ public class Hazard : ScriptableObject
 
     public void StartSequence(Vector2 from, Transform to, MonoBehaviour caller)
     {
-        // var objects = new List<GameObject>();
-        // for(int i = 0; i < unitCount; ++i){
-        //     var obj = Instantiate(projectilePrefab);
-        //     objects.Add(obj);
-        //     obj.SetActive(false);
-        // }
         var data = new SequenceData(from, to, caller, speed, secondsBetweenProjectiles, unitCount, projectilePrefab);
         behavior.HandleSequence(data);
-        // var clone = Instantiate(behavior);
-        // clone.HandleSequence(data);
     }
 
 }
