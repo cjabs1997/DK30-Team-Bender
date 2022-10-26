@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ArcAttack
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 1147129745373322987, guid: 4bc322721108a8f468542b0eac92abd7, type: 3}
-  speed: 700
-  unitCount: 5
-  secondsBetweenProjectiles: 0.3
+  speed: 10
+  unitCount: 14
+  secondsBetweenProjectiles: 0.5
   behavior: {fileID: 11400000, guid: f447d3ed17704c7468580aa82a5e91f5, type: 2}

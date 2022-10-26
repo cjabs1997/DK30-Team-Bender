@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DirectAttack
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 8219121256179385999, guid: 9d6ae6d403ac2d845a21305c0147e5ee, type: 3}
-  speed: 700
+  speed: 15
   unitCount: 3
-  secondsBetweenProjectiles: 0
+  secondsBetweenProjectiles: 0.1
   behavior: {fileID: 11400000, guid: 4293b9f351a62b24f96e4c3cabea323e, type: 2}
