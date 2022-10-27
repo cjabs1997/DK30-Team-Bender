@@ -34,7 +34,7 @@ public class HazardProjectile : MonoBehaviour
     private void HandleFire(FireCommand command)
     {
         var m_RigidBody = this.GetComponent<Rigidbody2D>();
-        var vectorForce = this.CalculateVectorForce(command.From, (Vector2)command.To.position, command.Speed,m_RigidBody.mass);
+        var vectorForce = this.CalculateVectorForce(command.From, (Vector2)command.To, command.Speed,m_RigidBody.mass);
         m_RigidBody.AddForce(vectorForce);
         this.currentCommand = null;
     }
@@ -49,6 +49,15 @@ public class HazardProjectile : MonoBehaviour
         {
             this.currentCommand = null;
         }
+    }
+
+    private void HandleDragChange(DragChangeCommand command)
+    {
+        Debug.Log("Changing drag " + command.LinearDrag);
+        Rigidbody2D m_RigidBody = GetComponent<Rigidbody2D>();
+        m_RigidBody.drag = command.LinearDrag;
+        m_RigidBody.angularDrag = command.AngularDrag;
+        this.currentCommand = null;
     }
 
     private void HandleWait(WaitCommand command)
@@ -79,6 +88,10 @@ public class HazardProjectile : MonoBehaviour
 
             case WaitCommand w:
             HandleWait(w);
+            break;
+
+            case DragChangeCommand d:
+            HandleDragChange(d);
             break;
 
             case null:
