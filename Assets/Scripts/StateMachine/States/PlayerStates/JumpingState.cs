@@ -56,7 +56,7 @@ public class JumpingState : BaseState
 
     public override void StateUpdate()
     {
-
+        HandleStateTransitions();
     }
     
     IEnumerator MaxJump()
