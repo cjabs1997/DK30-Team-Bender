@@ -7,11 +7,6 @@ public abstract class BaseState : ScriptableObject
     protected StateController controller;
     public abstract State stateKey { get; }
 
-    public BaseState(StateController newController)
-    {
-        controller = newController;
-    }
-
     public virtual void EnterState(StateController controller)
     {
         this.controller = controller;

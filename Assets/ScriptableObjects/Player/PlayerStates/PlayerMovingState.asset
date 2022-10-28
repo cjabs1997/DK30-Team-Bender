@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 882a0f7d0d2cd3246bdfd709db460c2e, type: 3}
-  m_Name: PlayerStateFactory
+  m_Script: {fileID: 11500000, guid: bbfe909aad1c3264e921971accfa7df2, type: 3}
+  m_Name: PlayerMovingState
   m_EditorClassIdentifier: 
-  stateList:
-  - {fileID: 11400000, guid: 5106d5da7ff7c0846a409f0d6aa0de77, type: 2}
+  stats: {fileID: 11400000, guid: 04b3ff53e56282f4f8deb7f313f36d92, type: 2}

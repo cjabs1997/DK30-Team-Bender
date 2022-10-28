@@ -1,68 +1,61 @@
 using UnityEngine;
 using Helpers.MovementHelpers;
-using Helpers.TransitionHelpers;
 using States;
+
+/// <summary>
+/// State for when the player is moving (or just standing still for now, can split that logic later if needed).
+/// </summary>
 
 [CreateAssetMenu]
 public class MovingState : BaseState
 {
-    [SerializeField] private float maxSpeed; // Should move these to a better format
-    [SerializeField] private float maxForce;
-    [SerializeField] private ContactFilter2D groundMask;
+    [SerializeField] protected PlayerStats stats; // This is bad, I'll make this better later once architecture is more laid out
 
     public override State stateKey { get { return State.move; } }
-
-    private Vector2 _move;
-
-    public MovingState(StateController newController) : base(newController)
-    {
-
-    }
 
     public override void EnterState(StateController controller)
     {
         base.EnterState(controller);
 
         controller.Rigidbody2D.drag = 0;
-
-
-    }
-
-    public override void HandleStateTransitions()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void StateOnCollisionEnter2D(Collision2D collision)
-    {
-
     }
 
     public override void StateUpdate()
     {
-        //controller.Animator.SetFloat("MoveSpeed", Mathf.Abs(controller.Behavior.moveVector.x));
-        _move = new Vector2(5 * Input.GetAxisRaw("Horizontal"), 0);
-
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            //TransitionHelpers.Jump(controller.Animator);
+            controller.TransitionToState(controller.PlayerStateFactory.GetState(State.jump));
+            return;
         }
 
-        if (MovementHelpers.CheckGround(controller, groundMask))
+        // If we aren't touching ground
+        if (!MovementHelpers.CheckGround(controller,stats.GroundMask))
         {
-            //controller.Animator.SetBool("Grounded", false);
+            controller.TransitionToState(controller.PlayerStateFactory.GetState(State.fall));
             return;
         }
     }
 
     public override void StateFixedUpdate()
     {
-       controller.Rigidbody2D.MovePosition(_move * Time.deltaTime + controller.Rigidbody2D.position);
+        Vector2 moveForce = MovementHelpers.LateralMove(controller, stats.MaxHorizontalGroudedForce, stats.MaxSpeed, Input.GetAxisRaw("Horizontal"));
+
+        Debug.Log(moveForce);
+        controller.Rigidbody2D.AddForce(moveForce);
+    }
+
+    public override void HandleStateTransitions()
+    {
+        
+    }
+
+    public override void StateOnCollisionEnter2D(Collision2D collision)
+    {
+        
     }
 
     public override void ExitState()
     {
-
+        
     }
 }

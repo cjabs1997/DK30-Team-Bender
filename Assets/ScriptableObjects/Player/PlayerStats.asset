@@ -9,14 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbfe909aad1c3264e921971accfa7df2, type: 3}
-  m_Name: PlayerMoving
+  m_Script: {fileID: 11500000, guid: 3ea4ea268e1edd84693d4c6587a1c91a, type: 3}
+  m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  maxSpeed: 5
-  maxForce: 10
-  groundMask:
+  _terminalVelocity: 10
+  _initialJump: 7
+  _maxJumpTime: 0.3
+  _gravity: 25
+  _maxHorizontalForceInAir: 15
+  _groundMask:
     useTriggers: 0
-    useLayerMask: 0
+    useLayerMask: 1
     useDepth: 0
     useOutsideDepth: 0
     useNormalAngle: 0
@@ -28,3 +31,5 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  _maxSpeed: 8
+  _maxHorizontalGroundedForce: 30

@@ -19,7 +19,7 @@ public class StateFactory : ScriptableObject
 
     private void OnEnable()
     {
-        PopulateStates(); // We only need to populate this if it's empty, no need to repopulate
+        PopulateStates();
     }
 
     private void PopulateStates()
