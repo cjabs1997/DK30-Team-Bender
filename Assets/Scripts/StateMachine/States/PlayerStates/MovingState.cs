@@ -22,6 +22,18 @@ public class MovingState : BaseState
 
     public override void StateUpdate()
     {
+        HandleStateTransitions();
+    }
+
+    public override void StateFixedUpdate()
+    {
+        Vector2 moveForce = MovementHelpers.LateralMove(controller, stats.MaxHorizontalGroudedForce, stats.MaxSpeed, Input.GetAxisRaw("Horizontal"));
+
+        controller.Rigidbody2D.AddForce(moveForce);
+    }
+
+    public override void HandleStateTransitions()
+    {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             controller.TransitionToState(controller.PlayerStateFactory.GetState(State.jump));
@@ -29,24 +41,17 @@ public class MovingState : BaseState
         }
 
         // If we aren't touching ground
-        if (!MovementHelpers.CheckGround(controller,stats.GroundMask))
+        if (!MovementHelpers.CheckGround(controller, stats.GroundMask))
         {
             controller.TransitionToState(controller.PlayerStateFactory.GetState(State.fall));
             return;
         }
-    }
 
-    public override void StateFixedUpdate()
-    {
-        Vector2 moveForce = MovementHelpers.LateralMove(controller, stats.MaxHorizontalGroudedForce, stats.MaxSpeed, Input.GetAxisRaw("Horizontal"));
-
-        Debug.Log(moveForce);
-        controller.Rigidbody2D.AddForce(moveForce);
-    }
-
-    public override void HandleStateTransitions()
-    {
-        
+        if (Input.GetAxisRaw("Horizontal") == 0)
+        {
+            controller.TransitionToState(controller.PlayerStateFactory.GetState(State.idle));
+            return;
+        }
     }
 
     public override void StateOnCollisionEnter2D(Collision2D collision)

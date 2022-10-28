@@ -40,4 +40,8 @@ public class PlayerStats : ScriptableObject
     [SerializeField] private float _maxHorizontalGroundedForce;
     public float MaxHorizontalGroudedForce => _maxHorizontalGroundedForce;
 
+    [Tooltip("How long until the player should stop when they release inputs")]
+    [SerializeField] private float _stopDistance;
+    public float StopDistance => _stopDistance;
+
 }

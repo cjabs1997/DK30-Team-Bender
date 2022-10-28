@@ -29,7 +29,7 @@ public class FallingState : BaseState
     {
         if (MovementHelpers.CheckGround(controller, stats.GroundMask))
         {
-            controller.Rigidbody2D.AddForce(MovementHelpers.LateralMove(controller, stats.MaxHorizontalForceInAir * 3.5f, stats.MaxSpeed, Input.GetAxisRaw("Horizontal"))); // This is pretty jank solution 
+            controller.Rigidbody2D.AddForce(MovementHelpers.LateralMove(controller, stats.MaxHorizontalForceInAir * 4.5f, stats.MaxSpeed, Input.GetAxisRaw("Horizontal"))); // This is pretty jank solution 
             controller.TransitionToState(controller.PlayerStateFactory.GetState(State.move));
             return;
         }

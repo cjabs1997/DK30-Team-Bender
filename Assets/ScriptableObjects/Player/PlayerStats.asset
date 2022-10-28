@@ -33,3 +33,4 @@ MonoBehaviour:
     maxNormalAngle: 0
   _maxSpeed: 8
   _maxHorizontalGroundedForce: 30
+  _stopDistance: 1
