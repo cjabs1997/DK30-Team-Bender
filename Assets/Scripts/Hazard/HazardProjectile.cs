@@ -71,7 +71,7 @@ public class HazardProjectile : MonoBehaviour
             return;
         }
 
-        var forceVector = CalculateVectorForce(m_RigidBody.position, command.To, command.Speed * Time.deltaTime, m_RigidBody.mass);
+        var forceVector = CalculateVectorForce(m_RigidBody.position, command.To, command.Speed, m_RigidBody.mass);
 
         // slow arrival not working rn
         // if(command.SlowArrival)
@@ -86,39 +86,11 @@ public class HazardProjectile : MonoBehaviour
         //     }
         // }
 
-        Vector2 steering = (forceVector - m_RigidBody.velocity) / Time.deltaTime;
+        Vector2 steering = (forceVector - m_RigidBody.velocity) * Time.deltaTime;
         Vector2 steerForce = m_RigidBody.mass * steering;
         steerForce = Vector2.ClampMagnitude(forceVector, maxSteeringForce);
         m_RigidBody.AddForce(steerForce);
 
-        // Seek
-        // ----------------------
-        // Vector2 desiredVel = (to - from).normalized * controller.MaxSpeed;
-        // Vector2 steering = (desiredVel - controller.Rigidbody2D.velocity) / Time.deltaTime;  // acceleration effectively
-        // Vector2 steerForce = controller.Rigidbody2D.mass * steering;
-        // steerForce = Vector2.ClampMagnitude(moveForce, maxSteeringForce);
-        // ----------------------
-
-
-        // ArrivalBehavior
-        // ----------------------
-        // public static Vector2 ArrivalBehavior(EnemyController controller, GameObject target, float slowRadius)
-        // ^^ HEADER
-        // Vector2 desiredVel = target.transform.position - controller.transform.position;
-        // float distanceSquared = desiredVel.sqrMagnitude;
-        // float slowRadiusSquared = slowRadius * slowRadius;
-
-        // if (distanceSquared < slowRadiusSquared)
-        // {
-        //             desiredVel = desiredVel.normalized * controller.MaxSpeed * Mathf.Sqrt(distanceSquared / slowRadiusSquared);
-        // }
-        // else // Outside the slowRadius
-        // {
-        //             desiredVel = desiredVel.normalized * controller.MaxSpeed;
-        // }
-
-        // Vector2 steering = desiredVel - controller.Rigidbody2D.velocity; 
-        // ----------------------
     }
 
     private void HandleDragChange(DragChangeCommand command)
