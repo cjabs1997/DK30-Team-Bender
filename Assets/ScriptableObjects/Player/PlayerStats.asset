@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _terminalVelocity: 10
   _initialJump: 7
-  _maxJumpTime: 0.3
+  _maxJumpTime: 0.25
   _gravity: 25
   _maxHorizontalForceInAir: 15
   _groundMask:
@@ -32,5 +32,5 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   _maxSpeed: 8
-  _maxHorizontalGroundedForce: 30
-  _stopDistance: 1
+  _maxHorizontalGroundedForce: 95
+  _stopDistance: 0.5

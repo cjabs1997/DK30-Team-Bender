@@ -19,9 +19,6 @@ public class IdleState : BaseState
         startDir = Math.Sign(controller.Rigidbody2D.velocity.x);
         acceleration = -Mathf.Pow(controller.Rigidbody2D.velocity.x, 2) / (2 * stats.StopDistance);
         acceleration *= startDir;
-
-        Debug.Log("START: " + controller.transform.position.x);
-
     }
 
     public override void ExitState()
@@ -53,10 +50,10 @@ public class IdleState : BaseState
 
     public override void StateFixedUpdate()
     {
-        if(Mathf.Abs(controller.Rigidbody2D.velocity.x) <= 0.05f || startDir != Mathf.Sign(controller.Rigidbody2D.velocity.x)) // If we're already moving slow or change directions stop, this is a LITTLE jank :^)
+        // If we're already moving slow or change directions stop, this is a LITTLE jank :^)
+        if (Mathf.Abs(controller.Rigidbody2D.velocity.x) <= 0.05f || startDir != Mathf.Sign(controller.Rigidbody2D.velocity.x))
         {
             controller.Rigidbody2D.velocity = new Vector2(0f, controller.Rigidbody2D.velocity.y);
-            Debug.Log("Finish: " + controller.transform.position.x);
         }
         else
         { 

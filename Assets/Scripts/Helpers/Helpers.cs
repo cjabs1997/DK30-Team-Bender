@@ -39,7 +39,7 @@ namespace Helpers
                 // F = M * A
                 float moveForce = controller.Rigidbody2D.mass * acceleration;
 
-                Mathf.Min(moveForce, Mathf.Max(0, moveForce));
+                //Mathf.Min(moveForce, Mathf.Max(0, moveForce));
 
                 return moveForce;
             }
