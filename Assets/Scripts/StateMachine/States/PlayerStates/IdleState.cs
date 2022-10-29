@@ -46,6 +46,12 @@ public class IdleState : BaseState
             controller.TransitionToState(controller.PlayerStateFactory.GetState(State.move));
             return;
         }
+
+        if (Input.GetKeyDown(KeyCode.E) && controller.currentTerminal != null)
+        {
+            controller.TransitionToState(controller.PlayerStateFactory.GetState(State.inTerminal));
+            return;
+        }
     }
 
     public override void StateFixedUpdate()

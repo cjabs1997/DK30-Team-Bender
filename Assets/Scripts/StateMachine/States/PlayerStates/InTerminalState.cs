@@ -13,6 +13,7 @@ public class InTerminalState : BaseState
         base.EnterState(controller);
 
         controller.Rigidbody2D.velocity = Vector2.zero;
+        controller.currentTerminal.OpenTerminal();
     }
 
     public override void ExitState()
@@ -22,7 +23,11 @@ public class InTerminalState : BaseState
 
     public override void HandleStateTransitions()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            controller.TransitionToState(controller.PlayerStateFactory.GetState(State.idle));
+            return;
+        }
     }
 
     public override void StateFixedUpdate()
@@ -37,6 +42,6 @@ public class InTerminalState : BaseState
 
     public override void StateUpdate()
     {
-        
+        HandleStateTransitions();   
     }
 }

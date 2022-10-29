@@ -52,6 +52,12 @@ public class MovingState : BaseState
             controller.TransitionToState(controller.PlayerStateFactory.GetState(State.idle));
             return;
         }
+
+        if (Input.GetKeyDown(KeyCode.E) && controller.currentTerminal != null)
+        {
+            controller.TransitionToState(controller.PlayerStateFactory.GetState(State.inTerminal));
+            return;
+        }
     }
 
     public override void StateOnCollisionEnter2D(Collision2D collision)
