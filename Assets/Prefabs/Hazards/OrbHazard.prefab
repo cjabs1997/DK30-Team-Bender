@@ -121,3 +121,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotate: 1
   degreesPerSecond: 360
+  maxSteeringForce: 55
