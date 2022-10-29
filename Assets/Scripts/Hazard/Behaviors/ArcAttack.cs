@@ -9,6 +9,8 @@ public class ArcAttack : BehaviorBase
     [SerializeField] public float ArcRadius;
     [SerializeField, Range(0f, 130f)] float ArcAngle;
     [SerializeField] float SetupSpeedMultiplier;
+    [SerializeField] bool ChaseTarget;
+    [SerializeField] float ChaseTime;
 
     private Vector2 CalculateArcPoint(Vector2 origin, float angle)
     {
@@ -31,22 +33,18 @@ public class ArcAttack : BehaviorBase
             var projectileScript = obj.GetComponent<HazardProjectile>();
 
             var commands = new Queue<HazardCommand>();
-            var pos1 = Vector2.MoveTowards(data.From, point, Vector2.Distance(data.From, point)/2);
-            var pos2 = Vector2.MoveTowards(pos1, point, Vector2.Distance(pos1, point)/2);
-            var pos3 = Vector2.MoveTowards(pos2, point, Vector2.Distance(pos2, point)/2);
-            var pos4 = Vector2.MoveTowards(pos3, point, Vector2.Distance(pos3, point));
 
 
-            // commands.Enqueue(new MoveCommand(data.From, point, data.Speed * SetupSpeedMultiplier));
-            commands.Enqueue(new MoveCommand(data.From, pos1, data.Speed * SetupSpeedMultiplier));
-            commands.Enqueue(new MoveCommand(data.From, pos2, data.Speed * SetupSpeedMultiplier * 0.5f));
-            commands.Enqueue(new MoveCommand(data.From, pos3, data.Speed * SetupSpeedMultiplier * 0.25f));
-            commands.Enqueue(new MoveCommand(data.From, pos4, data.Speed * SetupSpeedMultiplier * 0.125f));
-
+            commands.Enqueue(new MoveCommand(data.From, point, data.Speed * SetupSpeedMultiplier));
             commands.Enqueue(new WaitCommand(data.SecondsBetweenProjectiles));
             commands.Enqueue(new WaitCommand(i * data.SecondsBetweenProjectiles));
-
-            commands.Enqueue(new FireCommand(point, data.To, data.Speed));
+            if(ChaseTarget){
+                commands.Enqueue(new MoveCommand(point, data.To, data.Speed, stopAtDestination: false, timeLimit: this.ChaseTime));
+            }
+            else
+            {
+                commands.Enqueue(new FireCommand(point, data.To, data.Speed));
+            }
             
             obj.SetActive(true);
             if(obj == null) continue;
@@ -57,7 +55,6 @@ public class ArcAttack : BehaviorBase
 
     override public void HandleSequence(SequenceData data)
     {
-        // data.Caller.StartCoroutine(SetupProjectiles(data));
         data.Caller.StartCoroutine( SpawnProjectiles(data) );
     }
 }

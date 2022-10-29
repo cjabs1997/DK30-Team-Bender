@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c69f45fdfe6fc2438bc3e4a9c8f8727, type: 3}
   m_Name: Arc
   m_EditorClassIdentifier: 
-  ArcRadius: 2
-  ArcAngle: 130
-  SetupSpeedMultiplier: 0.25
+  ArcRadius: 4
+  ArcAngle: 80.3
+  SetupSpeedMultiplier: 1
+  ChaseTarget: 1
+  ChaseTime: 1.25

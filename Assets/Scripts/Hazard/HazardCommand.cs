@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public abstract class HazardCommand {}
 
+// SLOW ARRIVAL NOT WORKING - see hazardprojectile
 public class MoveCommand : HazardCommand 
 {
     private Vector2 from;
@@ -14,19 +15,39 @@ public class MoveCommand : HazardCommand
     public Vector2 To { get { return toTransform != null ? (Vector2) toTransform.position :  to ;} }
     private float speed;
     public float Speed => speed;
+    private bool slowArrival;
+    public bool SlowArrival => slowArrival;
 
-    public MoveCommand(Vector2 from, Vector2 to, float speed)
+    private float slowArrivalRadius;
+    public float SlowArrivalRadius => slowArrivalRadius;
+    private bool stopAtDestination;
+    public bool StopAtDestination => stopAtDestination;
+    private float timeLimit;
+    public float TimeLimit => timeLimit;
+    private float startTime;
+    public float StartTime => startTime;
+
+
+    public MoveCommand(Vector2 from, Vector2 to, float speed, bool stopAtDestination=true, bool slowArrival=false, float slowArrivalRadius=0, float timeLimit=30)
     {
         this.from = from;
         this.to = to;
         this.speed = speed;
+        this.slowArrival = slowArrival;
+        this.slowArrivalRadius = slowArrivalRadius;
+        this.stopAtDestination = stopAtDestination;
+        this.timeLimit = timeLimit;
     }
 
-    public MoveCommand(Vector2 from, Transform to, float speed)
+    public MoveCommand(Vector2 from, Transform to, float speed, bool stopAtDestination=true, bool slowArrival=false, float slowArrivalRadius=0, float timeLimit=30)
     {
         this.from = from;
         this.toTransform = to;
         this.speed = speed;
+        this.slowArrival = slowArrival;
+        this.slowArrivalRadius = slowArrivalRadius;
+        this.stopAtDestination = stopAtDestination;
+        this.timeLimit = timeLimit;
     }
 
 }
