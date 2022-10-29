@@ -23,7 +23,7 @@ public class InTerminalState : BaseState
 
     public override void HandleStateTransitions()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || controller.currentTerminal == null)
         {
             controller.TransitionToState(controller.PlayerStateFactory.GetState(State.idle));
             return;

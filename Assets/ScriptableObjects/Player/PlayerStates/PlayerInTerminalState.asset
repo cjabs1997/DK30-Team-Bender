@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56f890d6389520340a2c741ab262cf18, type: 3}
-  m_Name: Red
+  m_Script: {fileID: 11500000, guid: a17e8a9834352f14f8c1b234ca9814f9, type: 3}
+  m_Name: PlayerInTerminalState
   m_EditorClassIdentifier: 
-  _buttonColor: {r: 0.7725491, g: 0.04705883, b: 0.15686275, a: 1}

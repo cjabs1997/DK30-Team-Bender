@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class ButtonSequenceTerminal : MonoBehaviour
 {
+    public Terminal Terminal { get; set; }
+
     [SerializeField] ColoredButton[] _possibleButtons;
     [SerializeField] List<UnityEngine.UI.Image> _sequenceImages;
 
-    [SerializeField] private ColoredButton[] _correctSequence;
-    [SerializeField] private ColoredButton[] _enteredSequence;
+    private ColoredButton[] _correctSequence;
+    private ColoredButton[] _enteredSequence;
 
     private List<UnityEngine.UI.Button> _buttons;
     private int _buttonsPressed;
@@ -75,6 +77,7 @@ public class ButtonSequenceTerminal : MonoBehaviour
         }
 
         Debug.Log("VICTORY");
+        this.Terminal.TerminalExited();
         Destroy(this.gameObject);
     }
 

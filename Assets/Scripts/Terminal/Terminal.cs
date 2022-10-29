@@ -22,6 +22,11 @@ public class Terminal : MonoBehaviour
 
     public void OpenTerminal()
     {
-        Instantiate(_terminalPrefab, _canvas);
+        Instantiate(_terminalPrefab, _canvas).GetComponent<ButtonSequenceTerminal>().Terminal = this; ;
+    }
+
+    public void TerminalExited()
+    {
+        _playerController.currentTerminal = null;
     }
 }

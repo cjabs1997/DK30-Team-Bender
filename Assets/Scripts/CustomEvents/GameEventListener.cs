@@ -8,7 +8,7 @@ public class GameEventListener : MonoBehaviour
     public GameEvent Event;
 
     [Tooltip("Response to invoke when Event is raised.")]
-    public UnityEvent Response;
+    public UnityEngine.Events.UnityEvent Response;
 
     private void OnEnable()
     {

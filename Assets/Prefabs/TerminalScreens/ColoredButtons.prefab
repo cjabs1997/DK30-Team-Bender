@@ -919,6 +919,7 @@ MonoBehaviour:
   - {fileID: 6109057972924480189}
   _correctSequence: []
   _enteredSequence: []
+  _terminalExited: {fileID: 11400000, guid: 364dc817fd7ec374caba1deea475e720, type: 2}
 --- !u!1 &6109057972663757943
 GameObject:
   m_ObjectHideFlags: 0
