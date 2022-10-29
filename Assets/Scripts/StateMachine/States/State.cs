@@ -8,6 +8,7 @@ namespace States
         move,
         jump,
         fall,
-        attack
+        attack,
+        inTerminal
     }
 }

@@ -7,7 +7,7 @@ public class StateNotFoundException : System.Exception { }
 [CreateAssetMenu]
 public class StateFactory : ScriptableObject
 {
-    private Dictionary<State, BaseState> States;
+    private Dictionary<State, BaseState> States = new Dictionary<State, BaseState>();
 
     [SerializeField] private BaseState[] stateList;
 
@@ -19,7 +19,7 @@ public class StateFactory : ScriptableObject
 
     private void OnEnable()
     {
-        PopulateStates(); // We only need to populate this if it's empty, no need to repopulate
+        PopulateStates();
     }
 
     private void PopulateStates()
