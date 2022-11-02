@@ -30,6 +30,10 @@ public class PlayerStats : ScriptableObject
     [SerializeField] private ContactFilter2D _groundMask;
     public ContactFilter2D GroundMask => _groundMask;
 
+    [Tooltip("How long after the player falls can they still jump")]
+    [SerializeField] private float _jumpDelay;
+    public float JumpDelay => _jumpDelay;
+
 
     [Header("General Movement")]
     [Tooltip("Max speed the player can achieve")]
