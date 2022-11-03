@@ -6,7 +6,7 @@ using Helpers.MovementHelpers;
 /// State for when you are falling, effectively only under the effects of gravity
 /// </summary>
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "States/Player/Falling")]
 public class FallingState : BaseState
 {
     [SerializeField] protected PlayerStats stats; // This is bad, I'll make this better later once architecture is more laid out

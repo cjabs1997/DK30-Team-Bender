@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TerminalProgressBar : MonoBehaviour
 {
-    public UnityEngine.UI.Image fillImage;
-    public UnityEngine.UI.Image maskImage;
+    [SerializeField] private UnityEngine.UI.Image fillImage;
+    [SerializeField] private UnityEngine.UI.Image maskImage;
 
     [SerializeField] Color startingColor;
     [SerializeField] Color filledColor;

@@ -17,9 +17,6 @@ public class StateController : MonoBehaviour
     [SerializeField] private StateFactory stateFactory; 
     public StateFactory PlayerStateFactory { get { return stateFactory; } }
 
-    // VERI BAD WILL CHANGE
-    public Terminal currentTerminal { set; get; }
-
     private void Awake()
     {
         Rigidbody2D = this.GetComponent<Rigidbody2D>();

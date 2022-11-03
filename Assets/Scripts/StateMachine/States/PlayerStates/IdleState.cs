@@ -3,7 +3,7 @@ using UnityEngine;
 using Helpers.MovementHelpers;
 using System;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "States/Player/Idle")]
 public class IdleState : BaseState
 {
     public override State stateKey { get { return State.idle; } }
@@ -44,12 +44,6 @@ public class IdleState : BaseState
         if(Input.GetAxisRaw("Horizontal") != 0)
         {
             controller.TransitionToState(controller.PlayerStateFactory.GetState(State.move));
-            return;
-        }
-
-        if (Input.GetKeyDown(KeyCode.E) && controller.currentTerminal != null)
-        {
-            controller.TransitionToState(controller.PlayerStateFactory.GetState(State.inTerminal));
             return;
         }
     }

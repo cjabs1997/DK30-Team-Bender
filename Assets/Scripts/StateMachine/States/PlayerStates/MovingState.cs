@@ -6,7 +6,7 @@ using States;
 /// State for when the player is moving (or just standing still for now, can split that logic later if needed).
 /// </summary>
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "States/Player/Moving")]
 public class MovingState : BaseState
 {
     [SerializeField] protected PlayerStats stats; // This is bad, I'll make this better later once architecture is more laid out
@@ -50,12 +50,6 @@ public class MovingState : BaseState
         if (Input.GetAxisRaw("Horizontal") == 0)
         {
             controller.TransitionToState(controller.PlayerStateFactory.GetState(State.idle));
-            return;
-        }
-
-        if (Input.GetKeyDown(KeyCode.E) && controller.currentTerminal != null)
-        {
-            controller.TransitionToState(controller.PlayerStateFactory.GetState(State.inTerminal));
             return;
         }
     }
