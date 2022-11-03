@@ -37,7 +37,7 @@ public class IdleState : BaseState
         // If we aren't touching ground
         if (!MovementHelpers.CheckGround(controller, stats.GroundMask))
         {
-            controller.TransitionToState(controller.PlayerStateFactory.GetState(State.fall));
+            controller.TransitionToState(controller.PlayerStateFactory.GetState(State.delayedJump));
             return;
         }
 
@@ -57,7 +57,7 @@ public class IdleState : BaseState
     public override void StateFixedUpdate()
     {
         // If we're already moving slow or change directions stop, this is a LITTLE jank :^)
-        if (Mathf.Abs(controller.Rigidbody2D.velocity.x) <= 0.05f || startDir != Mathf.Sign(controller.Rigidbody2D.velocity.x))
+        if (startDir != Mathf.Sign(controller.Rigidbody2D.velocity.x))
         {
             controller.Rigidbody2D.velocity = new Vector2(0f, controller.Rigidbody2D.velocity.y);
         }

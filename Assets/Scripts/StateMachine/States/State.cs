@@ -9,6 +9,7 @@ namespace States
         jump,
         fall,
         attack,
-        inTerminal
+        inTerminal,
+        delayedJump
     }
 }

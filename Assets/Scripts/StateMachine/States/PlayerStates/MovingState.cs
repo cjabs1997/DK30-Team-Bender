@@ -43,7 +43,7 @@ public class MovingState : BaseState
         // If we aren't touching ground
         if (!MovementHelpers.CheckGround(controller, stats.GroundMask))
         {
-            controller.TransitionToState(controller.PlayerStateFactory.GetState(State.fall));
+            controller.TransitionToState(controller.PlayerStateFactory.GetState(State.delayedJump));
             return;
         }
 
