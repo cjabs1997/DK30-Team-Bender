@@ -6,6 +6,8 @@ using UnityEngine;
 // This is going to be some sloppy scripting but it should work fine, I'll make it better later
 public class Terminal : MonoBehaviour
 {
+    /*
+     * Commenting out for now
     [Header("State Information")]
     [Tooltip("The current state the object is in. Visible for debugging purposes only, don't edit!!!")]
     [SerializeField] protected BaseState currentState;
@@ -30,4 +32,5 @@ public class Terminal : MonoBehaviour
     {
         
     }
+    */
 }

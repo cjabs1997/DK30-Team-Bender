@@ -10,18 +10,11 @@ public class TerminalProgressBar : MonoBehaviour
     [SerializeField] Color startingColor;
     [SerializeField] Color filledColor;
 
-    [Range(0, 1)]
-    [SerializeField] private float fillProgress;
 
-    private void Awake()
+    public void UpdateFill(float progress)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        fillImage.color = Color.Lerp(startingColor, filledColor, fillProgress / 1);
-        maskImage.fillAmount = fillProgress / 1;
+        progress = Mathf.Min(progress, 1); // I think this isn't needed but just in case to prevent weirdness
+        fillImage.color = Color.Lerp(startingColor, filledColor, progress);
+        maskImage.fillAmount = progress;
     }
 }
