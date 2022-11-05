@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName="Hazard Behaviors/Arc")]
+[CreateAssetMenu(menuName="Hazards/Hazard Behaviors/Arc")]
 public class ArcAttack : BehaviorBase
 {
-
     [SerializeField] public float ArcRadius;
     [SerializeField, Range(0f, 130f)] float ArcAngle;
     [SerializeField] float SetupSpeedMultiplier;
@@ -23,7 +22,6 @@ public class ArcAttack : BehaviorBase
     
     private IEnumerator SpawnProjectiles(SequenceData data)
     {
-        // var delta = 1.0f/data.ProjectileCount;
         for(int i=0; i < data.ProjectileCount; ++i)
         {
             var obj = Instantiate(data.ProjectilePrefab);
@@ -35,11 +33,10 @@ public class ArcAttack : BehaviorBase
             var projectileScript = obj.GetComponent<HazardProjectile>();
 
             var commands = new Queue<HazardCommand>();
-
-
             commands.Enqueue(new MoveCommand(data.From, point, data.Speed * SetupSpeedMultiplier, slowArrival: SlowArrival, slowArrivalRadius: SlowArrivalRadius));
             commands.Enqueue(new WaitCommand(data.SecondsBetweenProjectiles));
             commands.Enqueue(new WaitCommand(i * data.SecondsBetweenProjectiles));
+            
             if(ChaseTarget)
             {
                 commands.Enqueue(new MoveCommand(point, data.To, data.Speed, timeLimit: this.ChaseTime));

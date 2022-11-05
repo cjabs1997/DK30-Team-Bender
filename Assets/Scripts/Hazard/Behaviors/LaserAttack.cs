@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName="Hazard Behaviors/Laser")]
+[CreateAssetMenu(menuName="Hazards/Hazard Behaviors/Laser")]
 public class LaserAttack : BehaviorBase
 {   
     [SerializeField]
