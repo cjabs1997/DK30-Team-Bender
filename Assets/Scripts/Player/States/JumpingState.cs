@@ -8,30 +8,23 @@ using Helpers.MovementHelpers;
 /// </summary>
 
 [CreateAssetMenu]
-public class JumpingState : BaseState
+public class JumpingState : PlayerState
 {
-    [SerializeField] protected PlayerStats stats; // This is bad, I'll make this better later once architecture is more laid out
-
     public override State stateKey { get { return State.jump; } }
 
     private Coroutine maxJumpRoutine;
 
-    public override void EnterState(StateController controller)
+    public override void EnterState(PlayerStateController controller)
     {
         base.EnterState(controller);
         
         controller.Rigidbody2D.drag = 0;
         controller.Rigidbody2D.AddForce(Vector2.up * stats.InitialJump, ForceMode2D.Impulse); // Adding an upward force, I don't like how this translates but it works for now
-        maxJumpRoutine = controller.StartCoroutine(MaxJump());
+        maxJumpRoutine = controller.StartCoroutine(MaxJump(controller));
        
     }
 
-    public override void ExitState()
-    {
-
-    }
-
-    public override void HandleStateTransitions()
+    public override void HandleStateTransitions(PlayerStateController controller)
     {
         if (!Input.GetKey(KeyCode.Space))
         {
@@ -41,25 +34,20 @@ public class JumpingState : BaseState
         }
     }
 
-    public override void StateFixedUpdate()
+    public override void StateFixedUpdate(PlayerStateController controller)
     {
         if (Mathf.Sign(Input.GetAxisRaw("Horizontal")) != Mathf.Sign(controller.Rigidbody2D.velocity.x) || Mathf.Abs(controller.Rigidbody2D.velocity.x) < stats.MaxSpeed)
         {
-            controller.Rigidbody2D.AddForce(MovementHelpers.LateralMove(controller, stats.MaxHorizontalForceInAir, stats.MaxSpeed, Input.GetAxisRaw("Horizontal")));
+            controller.Rigidbody2D.AddForce(MovementHelpers.LateralMove(controller.Rigidbody2D, stats.MaxHorizontalForceInAir, stats.MaxSpeed, Input.GetAxisRaw("Horizontal")));
         }
     }
 
-    public override void StateOnCollisionEnter2D(Collision2D collision)
+    public override void StateUpdate(PlayerStateController controller)
     {
-        
-    }
-
-    public override void StateUpdate()
-    {
-        HandleStateTransitions();
+        HandleStateTransitions(controller);
     }
     
-    IEnumerator MaxJump()
+    IEnumerator MaxJump(PlayerStateController controller)
     {
         yield return new WaitForSeconds(stats.MaxJumpTime);
         controller.TransitionToState(controller.PlayerStateFactory.GetState(State.fall));

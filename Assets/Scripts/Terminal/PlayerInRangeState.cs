@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using States;
 using UnityEngine;
 
-[CreateAssetMenu(menuName ="States/Terminal/PlayerInRange")]
+//[CreateAssetMenu(menuName ="States/Terminal/PlayerInRange")]
 public class PlayerInRangeState : MonoBehaviour
 {
     /*

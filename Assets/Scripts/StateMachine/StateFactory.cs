@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class StateNotFoundException : System.Exception { }
 
-[CreateAssetMenu]
-public class StateFactory : ScriptableObject
+public abstract class StateFactory<T> : ScriptableObject
 {
-    private Dictionary<State, BaseState> States = new Dictionary<State, BaseState>();
+    protected Dictionary<State, T> States = new Dictionary<State, T>();
 
-    [SerializeField] private BaseState[] stateList;
+    [SerializeField] protected T[] stateList;
 
 
-    public BaseState GetState(State state)
+    public T GetState(State state)
     {
-        return States.TryGetValue(state, out BaseState s) ? s : throw new StateNotFoundException();
+        return States.TryGetValue(state, out T s) ? s : throw new StateNotFoundException();
     }
 
     private void OnEnable()
@@ -22,13 +21,5 @@ public class StateFactory : ScriptableObject
         PopulateStates();
     }
 
-    private void PopulateStates()
-    {
-        if (States.Count != 0) return;
-
-        foreach (BaseState s in stateList)
-        {
-            States[s.stateKey] = s;
-        }
-    }
+    protected abstract void PopulateStates();
 }

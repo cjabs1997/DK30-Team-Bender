@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaitInAreaTerminal : StateController
+public class WaitInAreaTerminal : MonoBehaviour
 {
     public float Progress { get; private set; }
     [SerializeField] TerminalProgressBar _progressBar;

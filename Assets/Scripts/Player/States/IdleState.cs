@@ -4,15 +4,14 @@ using Helpers.MovementHelpers;
 using System;
 
 [CreateAssetMenu(menuName = "States/Player/Idle")]
-public class IdleState : BaseState
+public class IdleState : PlayerState
 {
     public override State stateKey { get { return State.idle; } }
-    [SerializeField] protected PlayerStats stats;
 
     float acceleration;
     float startDir;
 
-    public override void EnterState(StateController controller)
+    public override void EnterState(PlayerStateController controller)
     {
         base.EnterState(controller);
 
@@ -21,12 +20,7 @@ public class IdleState : BaseState
         acceleration *= startDir;
     }
 
-    public override void ExitState()
-    {
-        
-    }
-
-    public override void HandleStateTransitions()
+    public override void HandleStateTransitions(PlayerStateController controller)
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -35,7 +29,7 @@ public class IdleState : BaseState
         }
 
         // If we aren't touching ground
-        if (!MovementHelpers.CheckGround(controller, stats.GroundMask))
+        if (!MovementHelpers.CheckGround(controller.Collider2D, stats.GroundMask))
         {
             controller.TransitionToState(controller.PlayerStateFactory.GetState(State.delayedJump));
             return;
@@ -48,27 +42,22 @@ public class IdleState : BaseState
         }
     }
 
-    public override void StateFixedUpdate()
+    public override void StateFixedUpdate(PlayerStateController controller)
     {
         // If we're already moving slow or change directions stop, this is a LITTLE jank :^)
         if (startDir != Mathf.Sign(controller.Rigidbody2D.velocity.x))
         {
             controller.Rigidbody2D.velocity = new Vector2(0f, controller.Rigidbody2D.velocity.y);
         }
-        else
+        else if(controller.Rigidbody2D.velocity.x != 0)
         { 
             controller.Rigidbody2D.AddForce(Vector2.right * acceleration * controller.Rigidbody2D.mass);
         }
         
     }
 
-    public override void StateOnCollisionEnter2D(Collision2D collision)
+    public override void StateUpdate(PlayerStateController controller)
     {
-        
-    }
-
-    public override void StateUpdate()
-    {
-        HandleStateTransitions();
+        HandleStateTransitions(controller);
     }
 }
