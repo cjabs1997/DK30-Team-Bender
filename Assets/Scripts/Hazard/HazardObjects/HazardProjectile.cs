@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HazardProjectile : MonoBehaviour
+public class HazardProjectile : HazardObject
 {
     [SerializeField] bool rotate;
     [SerializeField] float degreesPerSecond;
@@ -11,11 +11,9 @@ public class HazardProjectile : MonoBehaviour
     Rigidbody2D m_RigidBody; 
     SpriteRenderer spriteRenderer;
 
-    private Queue<HazardCommand> commands;
-    private HazardCommand currentCommand;
+
     private bool waiting;
     private float spriteRadius;
-    private float commandStartTime;
 
     void Start()
     {
@@ -32,6 +30,23 @@ public class HazardProjectile : MonoBehaviour
         return F * direction;
     }
 
+    private Vector2 CalculateSlowArrivalVectorForce(Vector2 from, Vector2 to, float speed, float mass, float radius)
+    {
+        Vector2 desiredVel = from - to;
+        float distanceSquared = desiredVel.sqrMagnitude;
+        float slowRadiusSquared = radius * radius;
+
+        if (distanceSquared < slowRadiusSquared)
+        {
+                    desiredVel = desiredVel.normalized * speed * Mathf.Sqrt(distanceSquared / slowRadiusSquared);
+        }
+        else // Outside the slowRadius
+        {
+                    desiredVel = desiredVel.normalized * speed;
+        }
+
+        return -desiredVel;
+    }
     private IEnumerator Wait(float seconds)
     {
         this.waiting = true;
@@ -40,10 +55,6 @@ public class HazardProjectile : MonoBehaviour
         this.currentCommand = null;
     }
 
-    public void ExecuteCommands(Queue<HazardCommand> commands)
-    {
-        this.commands = commands;
-    }
     
     private void HandleFire(FireCommand command)
     {
@@ -54,10 +65,9 @@ public class HazardProjectile : MonoBehaviour
 
     private void HandleMove(MoveCommand command)
     {
-
-        if(Vector2.Distance(m_RigidBody.position, command.To) <= spriteRadius){
-            if(command.StopAtDestination)
-                m_RigidBody.velocity = Vector2.zero;
+        Debug.Log("Handling Move");
+        if(Vector2.Distance(m_RigidBody.position, command.To) <= 0.01){
+            m_RigidBody.velocity = Vector2.zero;
             this.currentCommand = null;
             m_RigidBody.drag = 0;
             return;
@@ -71,7 +81,16 @@ public class HazardProjectile : MonoBehaviour
             return;
         }
 
-        var forceVector = CalculateVectorForce(m_RigidBody.position, command.To, command.Speed, m_RigidBody.mass);
+        Vector2 forceVector = new Vector2(0, 0);
+        // Vector2 forceVector = CalculateVectorForce(m_RigidBody.position, command.To, command.Speed, m_RigidBody.mass);
+        if(command.SlowArrival)
+        {
+            forceVector = CalculateSlowArrivalVectorForce(m_RigidBody.position, command.To, command.Speed, m_RigidBody.mass, command.SlowArrivalRadius);
+        }
+        else
+        {
+            forceVector = CalculateVectorForce(m_RigidBody.position, command.To, command.Speed, m_RigidBody.mass);
+        }
 
         // slow arrival not working rn
         // if(command.SlowArrival)
@@ -84,6 +103,21 @@ public class HazardProjectile : MonoBehaviour
         //     {
         //         forceVector = forceVector * Mathf.Sqrt(distanceSquared / slowRadiusSquared) * Time.deltaTime / command.Speed;
         //     }
+        // }
+
+        // public static Vector2 ArrivalBehavior(EnemyController controller, GameObject target, float slowRadius)
+        //         ^^ HEADER
+        // Vector2 desiredVel = target.transform.position - controller.transform.position;
+        // float distanceSquared = desiredVel.sqrMagnitude;
+        // float slowRadiusSquared = slowRadius * slowRadius;
+
+        // if (distanceSquared < slowRadiusSquared)
+        // {
+        //             desiredVel = desiredVel.normalized * controller.MaxSpeed * Mathf.Sqrt(distanceSquared / slowRadiusSquared);
+        // }
+        // else // Outside the slowRadius
+        // {
+        //             desiredVel = desiredVel.normalized * controller.MaxSpeed;
         // }
 
         Vector2 steering = (forceVector - m_RigidBody.velocity) * Time.deltaTime;
@@ -108,7 +142,13 @@ public class HazardProjectile : MonoBehaviour
         }
     }
 
-    private void HandleExecuteCommand()
+    private void HandleGravityChange(GravityChangeCommand command)
+    {
+        m_RigidBody.gravityScale = command.Gravity;
+        this.currentCommand = null;
+    }
+
+    protected override void HandleExecuteCommand()
     {
         if(this.currentCommand == null)
         {
@@ -135,6 +175,10 @@ public class HazardProjectile : MonoBehaviour
 
             case DragChangeCommand d:
             HandleDragChange(d);
+            break;
+
+            case GravityChangeCommand g:
+            HandleGravityChange(g);
             break;
 
             case null:

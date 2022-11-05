@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d653fc935e953147b8345b1d44c237b, type: 3}
+  m_Name: LaserAttack
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 8779585898324489374, guid: cd012f382d98f984caf3b2583593eef1, type: 3}
+  speed: 1
+  unitCount: 1
+  secondsBetweenProjectiles: 1
+  behavior: {fileID: 11400000, guid: 63ad9ac395ba6254bbcf91be79e1b237, type: 2}
