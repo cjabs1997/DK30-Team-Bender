@@ -1,0 +1,16 @@
+{
+    "name": "HazardControllerAssembly",
+    "rootNamespace": "",
+    "references": [
+        "GUID:1f6f9d66ac31c3540b1b2d6fe985dd19"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
