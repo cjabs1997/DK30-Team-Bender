@@ -29,7 +29,7 @@ public class JumpingState : PlayerState
         if (!Input.GetKey(KeyCode.Space))
         {
             controller.StopCoroutine(maxJumpRoutine);
-            controller.TransitionToState(controller.PlayerStateFactory.GetState(State.fall));
+            controller.TransitionToState(controller.StateFactory.GetState(State.fall));
             return;
         }
     }
@@ -50,7 +50,7 @@ public class JumpingState : PlayerState
     IEnumerator MaxJump(PlayerStateController controller)
     {
         yield return new WaitForSeconds(stats.MaxJumpTime);
-        controller.TransitionToState(controller.PlayerStateFactory.GetState(State.fall));
+        controller.TransitionToState(controller.StateFactory.GetState(State.fall));
     }
     
 }

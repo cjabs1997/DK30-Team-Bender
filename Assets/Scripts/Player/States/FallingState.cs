@@ -23,7 +23,7 @@ public class FallingState : PlayerState
         if (MovementHelpers.CheckGround(controller.Collider2D, stats.GroundMask))
         {
             controller.Rigidbody2D.AddForce(MovementHelpers.LateralMove(controller.Rigidbody2D, stats.MaxHorizontalForceInAir * 4.5f, stats.MaxSpeed, Input.GetAxisRaw("Horizontal"))); // This is pretty jank solution 
-            controller.TransitionToState(controller.PlayerStateFactory.GetState(State.move));
+            controller.TransitionToState(controller.StateFactory.GetState(State.move));
             return;
         }
     }

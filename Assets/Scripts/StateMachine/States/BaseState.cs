@@ -36,12 +36,12 @@ public abstract class BaseState<T> : ScriptableObject
 
     }
 
-    public virtual void StateOnTriggerEnter2D(T controller, Collision2D collision)
+    public virtual void StateOnTriggerEnter2D(T controller, Collider2D collision)
     {
 
     }
 
-    public virtual void StateOnTriggerExit2D(T controller, Collision2D collision)
+    public virtual void StateOnTriggerExit2D(T controller, Collider2D collision)
     {
 
     }

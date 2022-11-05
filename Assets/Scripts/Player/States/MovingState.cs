@@ -34,20 +34,20 @@ public class MovingState : PlayerState
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            controller.TransitionToState(controller.PlayerStateFactory.GetState(State.jump));
+            controller.TransitionToState(controller.StateFactory.GetState(State.jump));
             return;
         }
 
         // If we aren't touching ground
         if (!MovementHelpers.CheckGround(controller.Collider2D, stats.GroundMask))
         {
-            controller.TransitionToState(controller.PlayerStateFactory.GetState(State.delayedJump));
+            controller.TransitionToState(controller.StateFactory.GetState(State.delayedJump));
             return;
         }
 
         if (Input.GetAxisRaw("Horizontal") == 0)
         {
-            controller.TransitionToState(controller.PlayerStateFactory.GetState(State.idle));
+            controller.TransitionToState(controller.StateFactory.GetState(State.idle));
             return;
         }
     }

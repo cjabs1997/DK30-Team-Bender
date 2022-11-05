@@ -15,7 +15,7 @@ public abstract class StateController<T1, T2> : MonoBehaviour
     public Animator Animator { get { return m_Animator; } }
 
     [SerializeField] private T2 stateFactory; 
-    public T2 PlayerStateFactory { get { return stateFactory; } }
+    public T2 StateFactory { get { return stateFactory; } }
 
     private void Awake()
     {

@@ -21,14 +21,14 @@ public class DelayedJumpState : PlayerState
         if (MovementHelpers.CheckGround(controller.Collider2D, stats.GroundMask))
         {
             controller.Rigidbody2D.AddForce(MovementHelpers.LateralMove(controller.Rigidbody2D, stats.MaxHorizontalForceInAir * 4.5f, stats.MaxSpeed, Input.GetAxisRaw("Horizontal"))); // This is pretty jank solution 
-            controller.TransitionToState(controller.PlayerStateFactory.GetState(State.move));
+            controller.TransitionToState(controller.StateFactory.GetState(State.move));
             controller.StopCoroutine(CanJumpRoutine);
             return;
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            controller.TransitionToState(controller.PlayerStateFactory.GetState(State.jump));
+            controller.TransitionToState(controller.StateFactory.GetState(State.jump));
             controller.StopCoroutine(CanJumpRoutine);
             return;
         }
@@ -62,6 +62,6 @@ public class DelayedJumpState : PlayerState
     {
         yield return new WaitForSeconds(stats.JumpDelay);
 
-        controller.TransitionToState(controller.PlayerStateFactory.GetState(State.fall));
+        controller.TransitionToState(controller.StateFactory.GetState(State.fall));
     }
 }
