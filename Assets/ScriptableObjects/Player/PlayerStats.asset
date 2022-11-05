@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ea4ea268e1edd84693d4c6587a1c91a, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  _terminalVelocity: 10
+  _terminalVelocity: 100
   _initialJump: 7
   _maxJumpTime: 0.25
-  _gravity: 25
+  _gravity: 20
   _maxHorizontalForceInAir: 15
   _groundMask:
     useTriggers: 0
@@ -31,6 +31,7 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  _jumpDelay: 0.15
   _maxSpeed: 8
   _maxHorizontalGroundedForce: 95
-  _stopDistance: 0.5
+  _stopDistance: 0.25
