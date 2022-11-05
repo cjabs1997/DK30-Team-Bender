@@ -1,18 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public abstract class HazardCommand {}
+
+[System.Serializable]
+public abstract class HazardCommand : ScriptableObject {}
 
 // SLOW ARRIVAL NOT WORKING - see hazardprojectile
+[System.Serializable]
+
+[CreateAssetMenu(menuName="Hazard/Commands/Move")]
 public class MoveCommand : HazardCommand 
-{
+{  
+    [SerializeField]
     private Vector2 from;
     public Vector2 From => from;
     private Transform toTransform;
     public Transform ToTransform => toTransform;
 
+    [SerializeField]
     private Vector2 to;
     public Vector2 To { get { return toTransform != null ? (Vector2) toTransform.position :  to ;} }
+    
+    [SerializeField]
     private float speed;
     public float Speed => speed;
     private bool slowArrival;
@@ -20,40 +29,40 @@ public class MoveCommand : HazardCommand
 
     private float slowArrivalRadius;
     public float SlowArrivalRadius => slowArrivalRadius;
-    private bool stopAtDestination;
-    public bool StopAtDestination => stopAtDestination;
+
+    [SerializeField]
     private float timeLimit;
     public float TimeLimit => timeLimit;
-    private float startTime;
-    public float StartTime => startTime;
 
 
-    public MoveCommand(Vector2 from, Vector2 to, float speed, bool stopAtDestination=true, bool slowArrival=false, float slowArrivalRadius=0, float timeLimit=30)
+    public MoveCommand(Vector2 from, Vector2 to, float speed, bool slowArrival=false, float slowArrivalRadius=0, float timeLimit=30)
     {
         this.from = from;
         this.to = to;
         this.speed = speed;
         this.slowArrival = slowArrival;
         this.slowArrivalRadius = slowArrivalRadius;
-        this.stopAtDestination = stopAtDestination;
+        // get rid of stopAtDestination :)
         this.timeLimit = timeLimit;
     }
 
-    public MoveCommand(Vector2 from, Transform to, float speed, bool stopAtDestination=true, bool slowArrival=false, float slowArrivalRadius=0, float timeLimit=30)
+    public MoveCommand(Vector2 from, Transform to, float speed, bool slowArrival=false, float slowArrivalRadius=0, float timeLimit=30)
     {
         this.from = from;
         this.toTransform = to;
         this.speed = speed;
         this.slowArrival = slowArrival;
         this.slowArrivalRadius = slowArrivalRadius;
-        this.stopAtDestination = stopAtDestination;
         this.timeLimit = timeLimit;
     }
 
 }
 
+[System.Serializable]
+[CreateAssetMenu(menuName="Hazard/Commands/Wait")]
 public class WaitCommand : HazardCommand
 {
+    [SerializeField]
     private float seconds;
     public float Seconds => seconds;
 
@@ -63,17 +72,21 @@ public class WaitCommand : HazardCommand
     }
 
 }
-
+[System.Serializable]
+[CreateAssetMenu(menuName="Hazard/Commands/Fire")]
 public class FireCommand : HazardCommand
 {
+    [SerializeField]
     private Vector2 from;
     public Vector2 From => from;
     private Transform toTransform;
     public Transform ToTransform => toTransform;
 
+    [SerializeField]
     private Vector2 to;
     public Vector2 To { get { return toTransform != null ? (Vector2) toTransform.position :  to ;} }
 
+    [SerializeField]
     private float speed;
     public float Speed => speed;
 
@@ -91,11 +104,14 @@ public class FireCommand : HazardCommand
     }
 
 }
-
+[System.Serializable]
+[CreateAssetMenu(menuName="Hazard/Commands/Change Drag")]
 public class DragChangeCommand : HazardCommand
 {
+    [SerializeField]
     private float linearDrag;
     public float LinearDrag => linearDrag;
+    [SerializeField]
     private float angularDrag;
     public float AngularDrag => angularDrag;
 
@@ -105,4 +121,16 @@ public class DragChangeCommand : HazardCommand
         this.angularDrag = angularDrag;
     }
 
+}
+
+public class GravityChangeCommand : HazardCommand
+{
+    [SerializeField]
+    private float gravity;
+    public float Gravity => gravity;
+
+    public GravityChangeCommand(float gravity)
+    {
+        this.gravity = gravity;
+    }
 }

@@ -11,6 +11,8 @@ public class ArcAttack : BehaviorBase
     [SerializeField] float SetupSpeedMultiplier;
     [SerializeField] bool ChaseTarget;
     [SerializeField] float ChaseTime;
+    [SerializeField] bool SlowArrival;
+    [SerializeField] float SlowArrivalRadius;
 
     private Vector2 CalculateArcPoint(Vector2 origin, float angle)
     {
@@ -35,11 +37,12 @@ public class ArcAttack : BehaviorBase
             var commands = new Queue<HazardCommand>();
 
 
-            commands.Enqueue(new MoveCommand(data.From, point, data.Speed * SetupSpeedMultiplier));
+            commands.Enqueue(new MoveCommand(data.From, point, data.Speed * SetupSpeedMultiplier, slowArrival: SlowArrival, slowArrivalRadius: SlowArrivalRadius));
             commands.Enqueue(new WaitCommand(data.SecondsBetweenProjectiles));
             commands.Enqueue(new WaitCommand(i * data.SecondsBetweenProjectiles));
-            if(ChaseTarget){
-                commands.Enqueue(new MoveCommand(point, data.To, data.Speed, stopAtDestination: false, timeLimit: this.ChaseTime));
+            if(ChaseTarget)
+            {
+                commands.Enqueue(new MoveCommand(point, data.To, data.Speed, timeLimit: this.ChaseTime));
             }
             else
             {
