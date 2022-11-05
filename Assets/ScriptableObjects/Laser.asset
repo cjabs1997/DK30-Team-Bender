@@ -9,13 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c69f45fdfe6fc2438bc3e4a9c8f8727, type: 3}
-  m_Name: Arc
+  m_Script: {fileID: 11500000, guid: 8d0ebd77e5848634685fcfdd51ac3fa3, type: 3}
+  m_Name: Laser
   m_EditorClassIdentifier: 
-  ArcRadius: 4
-  ArcAngle: 80.3
-  SetupSpeedMultiplier: 1
-  ChaseTarget: 1
-  ChaseTime: 1.25
-  SlowArrival: 1
-  SlowArrivalRadius: 1
+  startAngle: 0
