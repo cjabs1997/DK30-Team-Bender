@@ -358,39 +358,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hazardSequences:
   - controller: {fileID: 796025435}
-    target: {fileID: 1951215746}
-    hazard: {fileID: 11400000, guid: 87f1e93699350d64a90dcafbd62ac4db, type: 2}
-    waitBefore: 1
-    waitAfter: 1
-  - controller: {fileID: 796025435}
     target: {fileID: 1781907544}
-    hazard: {fileID: 11400000, guid: 87f1e93699350d64a90dcafbd62ac4db, type: 2}
+    hazard: {fileID: 11400000, guid: 5fad070003bb01a49b15e5bfe7d55d64, type: 2}
     waitBefore: 0
-    waitAfter: 0
-  - controller: {fileID: 796025435}
-    target: {fileID: 1781907544}
-    hazard: {fileID: 11400000, guid: 895292c79e94da74bb8a6cc1c06ab525, type: 2}
-    waitBefore: 3
-    waitAfter: 0
-  - controller: {fileID: 796025435}
-    target: {fileID: 1781907544}
-    hazard: {fileID: 11400000, guid: 5fad070003bb01a49b15e5bfe7d55d64, type: 2}
-    waitBefore: 1
-    waitAfter: 0
-  - controller: {fileID: 796025435}
-    target: {fileID: 1781907544}
-    hazard: {fileID: 11400000, guid: 5fad070003bb01a49b15e5bfe7d55d64, type: 2}
-    waitBefore: 1
-    waitAfter: 0
-  - controller: {fileID: 796025435}
-    target: {fileID: 1781907544}
-    hazard: {fileID: 11400000, guid: 5fad070003bb01a49b15e5bfe7d55d64, type: 2}
-    waitBefore: 1
-    waitAfter: 0
-  - controller: {fileID: 796025435}
-    target: {fileID: 1781907544}
-    hazard: {fileID: 11400000, guid: 5fad070003bb01a49b15e5bfe7d55d64, type: 2}
-    waitBefore: 1
     waitAfter: 0
 --- !u!4 &1746627413
 Transform:
