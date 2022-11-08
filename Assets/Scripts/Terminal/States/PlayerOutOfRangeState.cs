@@ -10,7 +10,6 @@ public class PlayerOutOfRangeState : AreaTerminalState
 
     public override void EnterState(WaitInAreaTerminalController controller)
     {
-        Debug.Log("ENTERED OUT OF RANGE");
         controller.TerminalProgressBar.gameObject.SetActive(false);
     }
 
