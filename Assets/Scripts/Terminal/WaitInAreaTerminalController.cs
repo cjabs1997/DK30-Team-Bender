@@ -5,14 +5,13 @@ using UnityEngine;
 public class WaitInAreaTerminalController : StateController<AreaTerminalState, WaitInTerminalStateFactory>
 {
     public float Progress { get; set; }
-    public TerminalProgressBar TerminalProgressBar;
-    //public TerminalProgressBar TerminalProgressBar { get { return _terminalProgressBar; } }
+    [SerializeField] private TerminalProgressBar _terminalProgressBar;
+    public TerminalProgressBar TerminalProgressBar { get { return _terminalProgressBar; } }
     [SerializeField] private float _timeToComplete; // Should put this behind a stat I think
     public float TimeToComplete { get { return _timeToComplete; } }
 
     public void Awake()
     {
-        //TerminalProgressBar = this.GetComponentInChildren<TerminalProgressBar>();
         Progress = 0;
     }
 
@@ -28,7 +27,6 @@ public class WaitInAreaTerminalController : StateController<AreaTerminalState, W
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("TRIGGER");
         currentState.StateOnTriggerEnter2D(this, collision);
     }
 

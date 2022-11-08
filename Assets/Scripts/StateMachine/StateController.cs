@@ -11,9 +11,6 @@ public abstract class StateController<T1, T2> : MonoBehaviour
 
     public Collider2D Collider2D { get; private set; }
 
-    [SerializeField] protected Animator m_Animator;
-    public Animator Animator { get { return m_Animator; } }
-
     [SerializeField] private T2 stateFactory; 
     public T2 StateFactory { get { return stateFactory; } }
 
@@ -21,7 +18,6 @@ public abstract class StateController<T1, T2> : MonoBehaviour
     {
         Rigidbody2D = this.GetComponent<Rigidbody2D>();
         Collider2D = this.GetComponent<Collider2D>();
-        m_Animator = this.GetComponent<Animator>();
     }
 
     public abstract void TransitionToState(T1 state);

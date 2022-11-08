@@ -44,12 +44,12 @@ public class IdleState : PlayerState
 
     public override void StateFixedUpdate(PlayerStateController controller)
     {
-        // If we're already moving slow or change directions stop, this is a LITTLE jank :^)
-        if (startDir != Mathf.Sign(controller.Rigidbody2D.velocity.x))
+        // If we're already moving slow or the force is too low set velocity to zero, this is a LITTLE jank :^)
+        if (startDir != Mathf.Sign(controller.Rigidbody2D.velocity.x) || Mathf.Abs(acceleration) < 1.5f)
         {
             controller.Rigidbody2D.velocity = new Vector2(0f, controller.Rigidbody2D.velocity.y);
         }
-        else if(controller.Rigidbody2D.velocity.x != 0)
+        else if(controller.Rigidbody2D.velocity.x != 0) // Only add a force if we're not moving
         { 
             controller.Rigidbody2D.AddForce(Vector2.right * acceleration * controller.Rigidbody2D.mass);
         }
