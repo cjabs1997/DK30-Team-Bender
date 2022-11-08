@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,7 +22,6 @@ public class HazardLaser : HazardObject
 
     void HandleFire(FireCommand command)
     {
-        Debug.Log("Fire handled");
         if(command.Speed > 0)
         {
             initializeLaser(command.From, command.To);
@@ -40,7 +38,6 @@ public class HazardLaser : HazardObject
     {
         if(this.lineRenderer == null)
         {
-            Debug.Log("Initializing");
             this.initializeLaser(command.From, command.To);
             currentCommand = null;
             return;
@@ -64,10 +61,8 @@ public class HazardLaser : HazardObject
         );
 
         castedObject = Physics2D.Raycast(command.From, newP2, laserDistance);
-        Debug.Log(castedObject.collider);
         if(castedObject.collider != null)
         {
-            Debug.Log(castedObject.collider);
             newP2 = newP2 * ( castedObject.point.magnitude / newP2.magnitude);
         }
         else
@@ -109,19 +104,10 @@ public class HazardLaser : HazardObject
             break;
         }
     }
-   
-    void Start()
-    {
-
-    }
 
     void FixedUpdate()
     {
         HandleExecuteCommand();
     }
     
-    void Update()
-    {
-        
-    }
 }

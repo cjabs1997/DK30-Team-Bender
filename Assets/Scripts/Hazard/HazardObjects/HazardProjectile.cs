@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HazardProjectile : HazardObject
@@ -7,6 +6,8 @@ public class HazardProjectile : HazardObject
     [SerializeField] bool rotate;
     [SerializeField] float degreesPerSecond;
     [SerializeField] float maxSteeringForce;
+
+    [SerializeField] AudioClip SoundOnMove;
 
     Rigidbody2D m_RigidBody; 
     SpriteRenderer spriteRenderer;
@@ -17,9 +18,9 @@ public class HazardProjectile : HazardObject
 
     void Start()
     {
-        m_RigidBody = this.GetComponent<Rigidbody2D>();
-        spriteRenderer = this.GetComponent<SpriteRenderer>();
-        spriteRadius = (spriteRenderer.bounds.center - spriteRenderer.bounds.size).magnitude;
+        this.m_RigidBody = this.GetComponent<Rigidbody2D>();
+        this.spriteRenderer = this.GetComponent<SpriteRenderer>();
+        this.spriteRadius = (spriteRenderer.bounds.center - spriteRenderer.bounds.size).magnitude;
         this.waiting = false;
     }
 
@@ -38,11 +39,11 @@ public class HazardProjectile : HazardObject
 
         if (distanceSquared < slowRadiusSquared)
         {
-                    desiredVel = desiredVel.normalized * speed * Mathf.Sqrt(distanceSquared / slowRadiusSquared);
+            desiredVel = desiredVel.normalized * speed * Mathf.Sqrt(distanceSquared / slowRadiusSquared);
         }
         else // Outside the slowRadius
         {
-                    desiredVel = desiredVel.normalized * speed;
+            desiredVel = desiredVel.normalized * speed;
         }
 
         return -desiredVel;
@@ -65,7 +66,6 @@ public class HazardProjectile : HazardObject
 
     private void HandleMove(MoveCommand command)
     {
-        Debug.Log("Handling Move");
         if(Vector2.Distance(m_RigidBody.position, command.To) <= 0.01){
             m_RigidBody.velocity = Vector2.zero;
             this.currentCommand = null;
@@ -75,14 +75,12 @@ public class HazardProjectile : HazardObject
 
         if(Time.time - this.commandStartTime > command.TimeLimit)
         {
-            Debug.Log("Time limit reached");
             this.currentCommand = null;
             m_RigidBody.drag = 0;
             return;
         }
 
-        Vector2 forceVector = new Vector2(0, 0);
-        // Vector2 forceVector = CalculateVectorForce(m_RigidBody.position, command.To, command.Speed, m_RigidBody.mass);
+        Vector2 forceVector;
         if(command.SlowArrival)
         {
             forceVector = CalculateSlowArrivalVectorForce(m_RigidBody.position, command.To, command.Speed, m_RigidBody.mass, command.SlowArrivalRadius);
@@ -91,34 +89,6 @@ public class HazardProjectile : HazardObject
         {
             forceVector = CalculateVectorForce(m_RigidBody.position, command.To, command.Speed, m_RigidBody.mass);
         }
-
-        // slow arrival not working rn
-        // if(command.SlowArrival)
-        // {
-        //     // float distanceSquared = ((m_RigidBody.position - command.To).normalized * command.Speed).sqrMagnitude;
-        //     // float slowRadiusSquared = command.SlowArrivalRadius * command.SlowArrivalRadius;
-        //     float distanceSquared = Mathf.Pow(Vector2.Distance(m_RigidBody.position, command.To), 2);
-        //     float slowRadiusSquared = Mathf.Pow(command.SlowArrivalRadius, 2);
-        //     if (distanceSquared < slowRadiusSquared)
-        //     {
-        //         forceVector = forceVector * Mathf.Sqrt(distanceSquared / slowRadiusSquared) * Time.deltaTime / command.Speed;
-        //     }
-        // }
-
-        // public static Vector2 ArrivalBehavior(EnemyController controller, GameObject target, float slowRadius)
-        //         ^^ HEADER
-        // Vector2 desiredVel = target.transform.position - controller.transform.position;
-        // float distanceSquared = desiredVel.sqrMagnitude;
-        // float slowRadiusSquared = slowRadius * slowRadius;
-
-        // if (distanceSquared < slowRadiusSquared)
-        // {
-        //             desiredVel = desiredVel.normalized * controller.MaxSpeed * Mathf.Sqrt(distanceSquared / slowRadiusSquared);
-        // }
-        // else // Outside the slowRadius
-        // {
-        //             desiredVel = desiredVel.normalized * controller.MaxSpeed;
-        // }
 
         Vector2 steering = (forceVector - m_RigidBody.velocity) * Time.deltaTime;
         Vector2 steerForce = m_RigidBody.mass * steering;
@@ -156,6 +126,17 @@ public class HazardProjectile : HazardObject
                 this.currentCommand = this.commands.Dequeue();
                 this.commandStartTime = Time.time;
             }
+
+            if(this.currentCommand is MoveCommand)
+            {
+                if(this.SoundOnMove != null)
+                    {
+                        var audio = this.GetComponent<AudioSource>();
+                        audio.clip = this.SoundOnMove;
+                        audio.Play();
+                    }
+            }
+
         }
 
         switch(this.currentCommand)
@@ -190,6 +171,22 @@ public class HazardProjectile : HazardObject
         HandleExecuteCommand();
     }
 
+
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        // TODO
+        // call collider's function with damage as argument
+        // if(collider.GetComponent<HazardProjectile>() == null)
+        //     Destroy(this.gameObject);
+
+        // if(collider.TryGetComponent<StateController>(out StateController stateController))
+        // {
+        //     // stateController.ApplyDamage(float);
+        //     // public bool ApplyDamage(float damage);
+        // }
+    }
+
     void Update()
     {
         if(rotate)
@@ -197,6 +194,8 @@ public class HazardProjectile : HazardObject
             this.transform.Rotate(new Vector3(0, 0, degreesPerSecond) * Time.deltaTime);
         }
     }
+
+
 
     void OnBecameInvisible()
     {
