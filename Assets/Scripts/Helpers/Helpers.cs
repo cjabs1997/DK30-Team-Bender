@@ -9,17 +9,17 @@ namespace Helpers
         {
             [SerializeField] private static RaycastHit2D[] hits2D = new RaycastHit2D[1]; // Adjust this as needed, likely only need 1 tho
 
-            public static bool CheckGround(StateController controller, ContactFilter2D groundMask, float castLength = 0.05f)
+            public static bool CheckGround(Collider2D collider, ContactFilter2D groundMask, float castLength = 0.05f)
             {
-                int hitGround = controller.Collider2D.Cast(Vector2.down, groundMask, hits2D, castLength);
+                int hitGround = collider.Cast(Vector2.down, groundMask, hits2D, castLength);
                 return hitGround == 1;
             }
 
-            static public Vector2 LateralMove(StateController controller, float maxForce, float maxSpeed, float moveDir)
+            static public Vector2 LateralMove(Rigidbody2D rigidbody, float maxForce, float maxSpeed, float moveDir)
             {
-                float horizontal_force = GetHorizontalForce(controller, maxSpeed, moveDir);
+                float horizontal_force = GetHorizontalForce(rigidbody, maxSpeed, moveDir);
 
-                Vector2 moveVector = controller.transform.right * horizontal_force;
+                Vector2 moveVector = rigidbody.transform.right * horizontal_force;
 
                 moveVector = Vector2.ClampMagnitude(moveVector, maxForce);
 
@@ -27,17 +27,17 @@ namespace Helpers
                 return moveVector;
             }
 
-            private static float GetHorizontalForce(StateController controller, float maxSpeed, float moveDir)
+            private static float GetHorizontalForce(Rigidbody2D rigidbody, float maxSpeed, float moveDir)
             {
                 if (moveDir == 0) return 0;
 
                 float targetVelocity = maxSpeed * moveDir;
 
                 // Vf = Vi + A * T
-                float acceleration = (targetVelocity - controller.Rigidbody2D.velocity.x) / Time.deltaTime;
+                float acceleration = (targetVelocity - rigidbody.velocity.x) / Time.deltaTime;
 
                 // F = M * A
-                float moveForce = controller.Rigidbody2D.mass * acceleration;
+                float moveForce = rigidbody.mass * acceleration;
 
                 //Mathf.Min(moveForce, Mathf.Max(0, moveForce));
 
