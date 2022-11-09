@@ -11,6 +11,8 @@ public abstract class StateController<T1, T2> : MonoBehaviour
 
     public Collider2D Collider2D { get; private set; }
 
+    [SerializeField]public AudioSource AudioSource;
+
     [SerializeField] private T2 stateFactory; 
     public T2 StateFactory { get { return stateFactory; } }
 
@@ -18,6 +20,7 @@ public abstract class StateController<T1, T2> : MonoBehaviour
     {
         Rigidbody2D = this.GetComponent<Rigidbody2D>();
         Collider2D = this.GetComponent<Collider2D>();
+        AudioSource = this.GetComponent<AudioSource>();
     }
 
     public abstract void TransitionToState(T1 state);

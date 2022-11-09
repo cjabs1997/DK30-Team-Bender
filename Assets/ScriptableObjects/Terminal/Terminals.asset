@@ -9,6 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ddfdebd55df22247958245e2f11ff60, type: 3}
-  m_Name: TerminalCompletedState
+  m_Script: {fileID: 11500000, guid: d81eed93838f5be4a90f7cf937a4d7c2, type: 3}
+  m_Name: Terminals
   m_EditorClassIdentifier: 
+  Value: []

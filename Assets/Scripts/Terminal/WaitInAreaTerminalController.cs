@@ -6,18 +6,20 @@ public class WaitInAreaTerminalController : StateController<AreaTerminalState, W
 {
     public float Progress { get; set; }
     [SerializeField] private TerminalProgressBar _terminalProgressBar;
-    public TerminalProgressBar TerminalProgressBar { get { return _terminalProgressBar; } }
+    public TerminalProgressBar TerminalProgressBar => _terminalProgressBar;
     [SerializeField] private float _timeToComplete; // Should put this behind a stat I think
-    public float TimeToComplete { get { return _timeToComplete; } }
+    public float TimeToComplete => _timeToComplete;
 
-    public void Awake()
-    {
-        Progress = 0;
-    }
+    public TerminalSet terminalSet;
+    public TerminalSet activatedTerminalSet;
+    [SerializeField] private GameEvent _terminalCompleted;
+    public GameEvent TerminalCompleted => _terminalCompleted;
+
 
     private void Start()
     {
         currentState.EnterState(this);
+        Progress = 0;
     }
 
     private void Update()
@@ -40,5 +42,16 @@ public class WaitInAreaTerminalController : StateController<AreaTerminalState, W
         currentState.ExitState(this);
         currentState = state;
         currentState.EnterState(this);
+    }
+
+    private void OnEnable()
+    {
+        terminalSet.AddValue(this);
+    }
+
+    private void OnDisable()
+    {
+        terminalSet.RemoveValue(this);
+        activatedTerminalSet.RemoveValue(this);
     }
 }
