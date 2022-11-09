@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using States;
 using UnityEngine;
 
-[CreateAssetMenu]
-public class InTerminalState : BaseState
+public class InTerminalState : ScriptableObject
 {
+    /*
+     * IDK IF WE're GONNA USE THIS ANYNMORE SO JUST COMMENTING IT ALL OUT FOR NOW
     public override State stateKey => State.inTerminal;
 
     public override void EnterState(StateController controller)
@@ -44,4 +45,5 @@ public class InTerminalState : BaseState
     {
         HandleStateTransitions();   
     }
+    */
 }

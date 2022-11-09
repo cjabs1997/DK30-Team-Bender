@@ -77,7 +77,7 @@ public class ButtonSequenceTerminal : MonoBehaviour
         }
 
         Debug.Log("VICTORY");
-        this.Terminal.TerminalExited();
+        //this.Terminal.TerminalExited();
         Destroy(this.gameObject);
     }
 
