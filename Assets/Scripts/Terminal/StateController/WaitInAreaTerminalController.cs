@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class WaitInAreaTerminalController : StateController<AreaTerminalState, WaitInTerminalStateFactory>
 {
-    public float Progress { get; set; }
+    
     [SerializeField] private TerminalProgressBar _terminalProgressBar;
     public TerminalProgressBar TerminalProgressBar => _terminalProgressBar;
-    [SerializeField] private float _timeToComplete; // Should put this behind a stat I think
-    public float TimeToComplete => _timeToComplete;
 
-    public TerminalSet terminalSet;
-    public TerminalSet activatedTerminalSet;
-    [SerializeField] private GameEvent _terminalCompleted;
-    public GameEvent TerminalCompleted => _terminalCompleted;
+    public WaitInAreaTerminal Terminal { get; private set; }
+    public float Progress { get; set; }
 
+    private bool _inRange; // This is gross but it trivializes some shit a ton
+
+    protected override void Awake()
+    {
+        Terminal = this.GetComponentInParent<WaitInAreaTerminal>();
+        AudioSource = this.GetComponentInParent<AudioSource>();
+        _inRange = false;
+    }
 
     private void Start()
     {
@@ -29,11 +33,17 @@ public class WaitInAreaTerminalController : StateController<AreaTerminalState, W
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.CompareTag("Player"))
+            _inRange = true;
+
         currentState.StateOnTriggerEnter2D(this, collision);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (collision.gameObject.CompareTag("Player"))
+            _inRange = false;
+
         currentState.StateOnTriggerExit2D(this, collision);
     }
 
@@ -44,14 +54,14 @@ public class WaitInAreaTerminalController : StateController<AreaTerminalState, W
         currentState.EnterState(this);
     }
 
-    private void OnEnable()
+    public void ResetTerminal()
     {
-        terminalSet.AddValue(this);
-    }
+        this.Progress = 0;
+        this.TerminalProgressBar.UpdateFill(Progress);
 
-    private void OnDisable()
-    {
-        terminalSet.RemoveValue(this);
-        activatedTerminalSet.RemoveValue(this);
+        if(_inRange)
+            this.TransitionToState(this.StateFactory.GetState(States.State.playerInRange));
+        else
+            this.TransitionToState(this.StateFactory.GetState(States.State.playerOutOfRange));
     }
 }

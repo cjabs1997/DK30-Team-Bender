@@ -12,8 +12,10 @@ public class TerminalCompletedState : AreaTerminalState
     public override void EnterState(WaitInAreaTerminalController controller)
     {
         controller.TerminalProgressBar.gameObject.SetActive(false);
-        controller.activatedTerminalSet.AddValue(controller);
-        controller.TerminalCompleted.Raise();
+        controller.Terminal.activatedTerminalSet.AddValue(controller.Terminal);
+        controller.Terminal.TerminalCompleted.Raise();
         _terminalActivatedAudio.Play(controller.AudioSource);
+
+        // Do something to signify the terminal is off, turn off hitbox for instance :)
     }
 }

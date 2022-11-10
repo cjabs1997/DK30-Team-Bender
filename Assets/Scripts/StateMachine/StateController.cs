@@ -7,16 +7,16 @@ public abstract class StateController<T1, T2> : MonoBehaviour
     [SerializeField] protected T1 currentState;
     public T1 CurrentState { get { return currentState; } }
  
-    public Rigidbody2D Rigidbody2D { get; private set; }
+    public Rigidbody2D Rigidbody2D { get; protected set; }
 
-    public Collider2D Collider2D { get; private set; }
+    public Collider2D Collider2D { get; protected set; }
 
-    [SerializeField]public AudioSource AudioSource;
+    public AudioSource AudioSource { get; protected set; }
 
     [SerializeField] private T2 stateFactory; 
     public T2 StateFactory { get { return stateFactory; } }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         Rigidbody2D = this.GetComponent<Rigidbody2D>();
         Collider2D = this.GetComponent<Collider2D>();

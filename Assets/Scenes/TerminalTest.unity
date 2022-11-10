@@ -547,6 +547,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1889546032, guid: 50cb5d6acd98af84e8bee2afcf226efb, type: 3}
+      propertyPath: _order
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1435640722351164105, guid: 50cb5d6acd98af84e8bee2afcf226efb, type: 3}
       propertyPath: m_Name
       value: WaitInAreaTerminal (1)
@@ -803,7 +807,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: {fileID: 11400000, guid: efbea69382884db449d17513cc32caba, type: 2}
-  AudioSource: {fileID: 0}
   stateFactory: {fileID: 11400000, guid: e1826bdec72dcdc439fb89809bfd9eeb, type: 2}
 --- !u!1 &766609956
 GameObject:
@@ -948,7 +951,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _terminalSet: {fileID: 11400000, guid: 20099d230b35d4f429a5b69c9f371f73, type: 2}
   _activatedTerminalSet: {fileID: 11400000, guid: 30fb985c46a3c7046bb7d8f4ee7d93d8, type: 2}
-  _orderMatters: 0
+  ResetTerminals: {fileID: 11400000, guid: 9fb82c1e7c281ce4289ed8f05f4c50e0, type: 2}
+  _orderMatters: 1
 --- !u!4 &806345590
 Transform:
   m_ObjectHideFlags: 0
@@ -1167,6 +1171,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1889546032, guid: 50cb5d6acd98af84e8bee2afcf226efb, type: 3}
+      propertyPath: _order
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1435640721931265460, guid: 50cb5d6acd98af84e8bee2afcf226efb, type: 3}
       propertyPath: _timeToComplete
       value: 1
@@ -1316,17 +1324,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1435640721931265460, guid: 50cb5d6acd98af84e8bee2afcf226efb, type: 3}
-      propertyPath: _timeToComplete
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1435640722351164105, guid: 50cb5d6acd98af84e8bee2afcf226efb, type: 3}
       propertyPath: m_Name
       value: WaitInAreaTerminal
-      objectReference: {fileID: 0}
-    - target: {fileID: 1435640722351164105, guid: 50cb5d6acd98af84e8bee2afcf226efb, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1435640722351164106, guid: 50cb5d6acd98af84e8bee2afcf226efb, type: 3}
       propertyPath: m_RootOrder
