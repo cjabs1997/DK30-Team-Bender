@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LaserAttack
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 8779585898324489374, guid: cd012f382d98f984caf3b2583593eef1, type: 3}
-  speed: 1
+  speed: 60
   unitCount: 1
   secondsBetweenProjectiles: 1
   behavior: {fileID: 11400000, guid: 63ad9ac395ba6254bbcf91be79e1b237, type: 2}

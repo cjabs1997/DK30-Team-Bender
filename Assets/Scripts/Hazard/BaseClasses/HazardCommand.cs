@@ -1,10 +1,10 @@
 using UnityEngine;
 
-[System.Serializable]
-public abstract class HazardCommand : ScriptableObject {}
+// [System.Serializable]
+public abstract class HazardCommand {}//: ScriptableObject {}
 
-[System.Serializable]
-[CreateAssetMenu(menuName="Hazards/Commands/Move")]
+// [System.Serializable]
+// [CreateAssetMenu(menuName="Hazards/Commands/Move")]
 public class MoveCommand : HazardCommand 
 {  
     [SerializeField]
@@ -53,8 +53,8 @@ public class MoveCommand : HazardCommand
 
 }
 
-[System.Serializable]
-[CreateAssetMenu(menuName="Hazards/Commands/Wait")]
+// [System.Serializable]
+// [CreateAssetMenu(menuName="Hazards/Commands/Wait")]
 public class WaitCommand : HazardCommand
 {
     [SerializeField]
@@ -67,8 +67,8 @@ public class WaitCommand : HazardCommand
     }
 
 }
-[System.Serializable]
-[CreateAssetMenu(menuName="Hazards/Commands/Fire")]
+// [System.Serializable]
+// [CreateAssetMenu(menuName="Hazards/Commands/Fire")]
 public class FireCommand : HazardCommand
 {
     [SerializeField]
@@ -99,8 +99,8 @@ public class FireCommand : HazardCommand
     }
 
 }
-[System.Serializable]
-[CreateAssetMenu(menuName="Hazards/Commands/Change Drag")]
+// [System.Serializable]
+// [CreateAssetMenu(menuName="Hazards/Commands/Change Drag")]
 public class DragChangeCommand : HazardCommand
 {
     [SerializeField]
@@ -117,8 +117,8 @@ public class DragChangeCommand : HazardCommand
     }
 
 }
-[System.Serializable]
-[CreateAssetMenu(menuName="Hazards/Commands/Change Gravity")]
+// [System.Serializable]
+// [CreateAssetMenu(menuName="Hazards/Commands/Change Gravity")]
 public class GravityChangeCommand : HazardCommand
 {
     [SerializeField]
