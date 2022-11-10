@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerStateController : StateController<PlayerState, PlayerStateFactory>
 {
+    public Terminal CurrentTerminal { get; set; }
+
     private void Start()
     {
         currentState.EnterState(this);
@@ -16,7 +18,13 @@ public class PlayerStateController : StateController<PlayerState, PlayerStateFac
 
     private void Update()
     {
-        currentState.StateUpdate(this);   
+        currentState.StateUpdate(this);
+
+        if (Input.GetKeyDown(KeyCode.E) && CurrentTerminal != null)
+        {
+            CurrentTerminal.ActivateTerminal();
+            CurrentTerminal = null;
+        }
     }
 
 

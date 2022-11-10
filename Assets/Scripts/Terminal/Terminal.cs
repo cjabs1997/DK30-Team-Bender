@@ -15,7 +15,10 @@ public class Terminal : MonoBehaviour
     public TerminalSet terminalSet; // Runtime set of all terminals in the scene
     public TerminalSet activatedTerminalSet; // Runtime set of all terminals that have been activated in the scene
 
+    public virtual void ActivateTerminal()
+    {
 
+    }
 
 
     private void OnEnable()
