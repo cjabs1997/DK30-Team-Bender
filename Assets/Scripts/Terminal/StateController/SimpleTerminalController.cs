@@ -45,11 +45,14 @@ public class SimpleTerminalController : StateController<SimpleTerminalState, Sim
             _inRange = false;
     }
 
+    private void OnTriggerStay2D(Collider2D collision) // This is gross but it fixes a bug sooooo...
+    {
+        if (collision.gameObject.CompareTag("Player"))
+            _inRange = true;
+    }
+
     public void ResetTerminal()
     {
-        if (_inRange)
-            this.TransitionToState(this.StateFactory.GetState(States.State.playerInRange));
-        else
-            this.TransitionToState(this.StateFactory.GetState(States.State.playerOutOfRange));
+        this.TransitionToState(this.StateFactory.GetState(States.State.playerOutOfRange));
     }
 }

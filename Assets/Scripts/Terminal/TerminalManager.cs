@@ -24,8 +24,6 @@ public class TerminalManager : MonoBehaviour
 
     public void TerminalActivated()
     {
-        Debug.Log("Terminal Activated");
-
         if (_activatedTerminalSet.Value.Count >= _terminalSet.Value.Count)
         {
             if(_orderMatters)
@@ -36,7 +34,7 @@ public class TerminalManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("WRONG SEQUENCE NERD");
+                    Debug.Log("WRONG SEQUENCE RESETTING");
                     _activatedTerminalSet.ResetSet();
                     ResetTerminals.Raise();
                 }
@@ -69,7 +67,6 @@ public class TerminalManager : MonoBehaviour
         {
             if (_correctSequence[i] != _activatedTerminalSet.Value[i])
             {
-                Debug.Log("FAILURE");
                 return false;
             }
         }

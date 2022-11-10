@@ -58,8 +58,9 @@ public class WaitInAreaTerminalController : StateController<AreaTerminalState, W
     {
         this.Progress = 0;
         this.TerminalProgressBar.UpdateFill(Progress);
+        this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
 
-        if(_inRange)
+        if (_inRange)
             this.TransitionToState(this.StateFactory.GetState(States.State.playerInRange));
         else
             this.TransitionToState(this.StateFactory.GetState(States.State.playerOutOfRange));
