@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using ProjectileCommands;
 
 public class HazardProjectile : HazardObject
 {
@@ -7,11 +8,13 @@ public class HazardProjectile : HazardObject
     [SerializeField] float degreesPerSecond;
     [SerializeField] float maxSteeringForce;
 
-    [SerializeField] AudioClip SoundOnMove;
+    [SerializeField] 
+    private SimpleAudioEvent soundOnMove;
+    public SimpleAudioEvent SoundOnMove => soundOnMove;
 
     Rigidbody2D m_RigidBody; 
     SpriteRenderer spriteRenderer;
-
+    AudioSource audioSource;
 
     private bool waiting;
     private float spriteRadius;
@@ -20,6 +23,7 @@ public class HazardProjectile : HazardObject
     {
         this.m_RigidBody = this.GetComponent<Rigidbody2D>();
         this.spriteRenderer = this.GetComponent<SpriteRenderer>();
+        this.audioSource = this.GetComponent<AudioSource>();
         this.spriteRadius = (spriteRenderer.bounds.center - spriteRenderer.bounds.size).magnitude;
         this.waiting = false;
     }
@@ -94,7 +98,7 @@ public class HazardProjectile : HazardObject
         Vector2 steerForce = m_RigidBody.mass * steering;
         steerForce = Vector2.ClampMagnitude(forceVector, maxSteeringForce);
         m_RigidBody.AddForce(steerForce);
-
+    
     }
 
     private void HandleDragChange(DragChangeCommand command)
@@ -127,14 +131,12 @@ public class HazardProjectile : HazardObject
                 this.commandStartTime = Time.time;
             }
 
-            if(this.currentCommand is MoveCommand)
+            if(this.currentCommand is MoveCommand || this.currentCommand is FireCommand)
             {
                 if(this.SoundOnMove != null)
-                    {
-                        var audio = this.GetComponent<AudioSource>();
-                        audio.clip = this.SoundOnMove;
-                        audio.Play();
-                    }
+                {
+                    this.SoundOnMove.Play(this.audioSource);
+                }
             }
 
         }

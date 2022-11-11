@@ -1,18 +1,15 @@
 {
-    "name": "HazardSequenceAssembly",
+    "name": "ProjectileCommandAssembly",
     "rootNamespace": "",
     "references": [
-        "GUID:1f6f9d66ac31c3540b1b2d6fe985dd19",
-        "GUID:dbafd6ac87f60024a8a53845204ea386",
-        "GUID:607213ba1bda1154fa21905353b2073a",
-        "GUID:c0d1ee3be3b57aa40a1ff2b1859f8d10"
+        "GUID:4077b693a618a734c84d0167e93999ff"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
-    "autoReferenced": false,
+    "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],
     "noEngineReferences": false

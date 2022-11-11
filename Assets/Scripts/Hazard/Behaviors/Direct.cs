@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ProjectileCommands;
+
 [CreateAssetMenu(menuName="Hazards/Hazard Behaviors/Direct")]
 public class Direct : BehaviorBase
 {
@@ -11,6 +13,7 @@ public class Direct : BehaviorBase
 
     private IEnumerator FireProjectiles(SequenceData data)
     {
+        Animator animator = data.Caller.GetComponent<Animator>();
         for(int i=0; i < data.ProjectileCount; ++i)
         {
             var obj = Instantiate(data.ProjectilePrefab);
@@ -29,6 +32,9 @@ public class Direct : BehaviorBase
             obj.SetActive(true);
             if(obj == null) continue;
             projectileScript.ExecuteCommands(commands);
+
+            animator.SetTrigger("OnFire");
+
             yield return new WaitForSeconds(data.SecondsBetweenProjectiles);
         }
     }

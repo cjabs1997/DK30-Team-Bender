@@ -2,7 +2,9 @@
     "name": "HazardControllerAssembly",
     "rootNamespace": "",
     "references": [
-        "GUID:1f6f9d66ac31c3540b1b2d6fe985dd19"
+        "GUID:1f6f9d66ac31c3540b1b2d6fe985dd19",
+        "GUID:607213ba1bda1154fa21905353b2073a",
+        "GUID:3b8b306a4990c054f810dc2c659581bc"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

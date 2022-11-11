@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using LaserCommands;
 
 [CreateAssetMenu(menuName="Hazards/Hazard Behaviors/Laser")]
 public class LaserAttack : BehaviorBase
@@ -11,6 +12,14 @@ public class LaserAttack : BehaviorBase
     private GameObject laserPrefab;
     private Queue<HazardCommand> commands;
     private HazardLaser laserScript;
+
+    [SerializeField]
+    private float startWaitTime;
+    public float StartWaitTime => startWaitTime;
+    [SerializeField]
+    private float endWaitTime;
+    public float endtWaitTime => endWaitTime;
+
 
     private void initialize(SequenceData data)
     {
@@ -23,10 +32,11 @@ public class LaserAttack : BehaviorBase
 
     private IEnumerator StartLaser(SequenceData data)
     {
-        var startPos = new Vector2(Mathf.Sin(startAngle * Mathf.Deg2Rad), Mathf.Cos(startAngle* Mathf.Deg2Rad));
-        this.commands.Enqueue(new FireCommand(data.From, startPos, 1));
-        this.commands.Enqueue(new MoveCommand(data.From, data.To, data.Speed));
-        this.commands.Enqueue(new FireCommand(data.From, data.To, 0));
+        this.commands.Enqueue(new ToggleActivation(true, startAngle * Mathf.Rad2Deg));
+        this.commands.Enqueue(new WaitCommand(startWaitTime));
+        this.commands.Enqueue(new MoveBy(data.Caller.transform.position, data.To, data.Speed));
+        this.commands.Enqueue(new WaitCommand(endWaitTime));
+        this.commands.Enqueue(new ToggleActivation(false));
         laserPrefab.SetActive(true);
         laserScript.ExecuteCommands(this.commands);
         yield return null;

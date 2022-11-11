@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using LaserCommands;
 
 public class HazardLaser : HazardObject
 {
@@ -9,73 +11,97 @@ public class HazardLaser : HazardObject
     [SerializeField]
     private float laserDistance;
     public float LaserDistance => laserDistance;
+    private float angleAmount = 0;
+    private bool waiting = false;
 
-    private float getCastedLocationScale(Vector2 from, Vector2 to)
+    private float getCastedDistance()
     {
-        float castedScale;
-        float diffMagnitude = (to - from).magnitude;
-        RaycastHit2D castedObject = Physics2D.Raycast(from, transform.up, laserDistance);
+        float castedDistance;
+        RaycastHit2D castedObject = Physics2D.Raycast(transform.position, transform.up, laserDistance);
         if(castedObject.collider != null)
         {
-            castedScale = (from - castedObject.point).magnitude / diffMagnitude;
+            castedDistance = Vector2.Distance(castedObject.point, transform.position);
         }
         else
         {
-            castedScale = laserDistance / diffMagnitude;
+            castedDistance = laserDistance;
         }
-        return castedScale;
+        return castedDistance;
     }
 
-    private void initializeLaser(Vector2 from, Vector2 to)
-    {
-        lineRenderer = GetComponent<LineRenderer>();
-        lineCollider = GetComponent<EdgeCollider2D>();
-        lineRenderer.alignment = LineAlignment.TransformZ;
-        float castedScale = getCastedLocationScale(from, to);
-        lineRenderer.SetPositions(new Vector3[2] { from, to * castedScale});
-
-        lineCollider.SetPoints(new List<Vector2> { from, to * castedScale });
-    }
-
-    void HandleFire(FireCommand command)
-    {
-        if(command.Speed > 0)
+    private Vector2 getDirectionVector(float angle, bool isRadians=false){
+        if(!isRadians)
         {
-            initializeLaser(command.From, command.To);
+            angle *= Mathf.Rad2Deg;
+        }
+        return new Vector2(Mathf.Sin(angle), Mathf.Cos(angle));
+    }
+
+    private void castLaser()
+    {
+        float castedDistance = getCastedDistance();
+        lineRenderer.SetPosition(1, Vector2.up * castedDistance);
+        if(!lineRenderer.enabled)
+            lineRenderer.enabled = true;
+        Debug.Log(lineRenderer.GetPosition(1));
+        lineCollider.SetPoints(new List<Vector2> { lineRenderer.GetPosition(0), lineRenderer.GetPosition(1) });
+    }
+
+    private IEnumerator Wait(float seconds)
+    {
+        this.waiting = true;
+        yield return new WaitForSeconds(seconds);
+        this.waiting = false;
+        this.currentCommand = null;
+    }
+    private void HandleWait(WaitCommand command)
+    {
+        if(!this.waiting)
+        {
+            StartCoroutine(Wait(command.Seconds));
+        }
+    }
+
+    void HandleFire(ToggleActivation command)
+    {
+        if(command.Activate)
+        {
+            castLaser();
         }
         else
         {
             Destroy(gameObject);
         }
         this.currentCommand = null;
-
     }
 
-    void HandleMove(MoveCommand command)
+    void HandleMove(MoveBy command)
     {
+
         if(this.lineRenderer == null)
         {
-            this.initializeLaser(command.From, command.To);
-            currentCommand = null;
+            this.transform.Rotate(xAngle: 0, 0, command.Angle);
+            this.castLaser();
+            this.currentCommand = null;
             return;
         }
+        
+        var currentAngle = MoveBy.GetSignedAngle(Vector2.up, transform.up);
+        var commandAngle = command.Angle;
+        float angleDiff = currentAngle - commandAngle;
 
-        var p1 = command.To;
-        Vector2 p2 = transform.TransformPoint(lineRenderer.GetPosition(1));
-        var origin = command.From;
-        // https://www.mathworks.com/matlabcentral/answers/180131-how-can-i-find-the-angle-between-two-vectors-including-directional-information
-        var angle = Mathf.Atan2(p1.y*p2.x - p1.x*p2.y, p1.x*p2.x+p1.y*p2.y);
-        angle *= Mathf.Rad2Deg;
-        if(Mathf.Abs(angle) < command.Speed * Time.deltaTime)
+        if(angleDiff > 180)
+            angleDiff = -(360 - angleDiff);
+
+        if(angleDiff < -180)
+            angleDiff = -(-360 - angleDiff);
+
+        var angleDelta = Mathf.Clamp(angleDiff, -command.Speed * Time.deltaTime, command.Speed * Time.deltaTime);
+        if(angleDiff*angleDiff <= angleDelta*angleDelta)
             this.currentCommand = null;
-        angle = Mathf.Clamp(angle, -command.Speed * Time.deltaTime, command.Speed * Time.deltaTime);
-
-        float scale = getCastedLocationScale(command.From, p2);
-        Vector2 newLineRendPos = lineRenderer.GetPosition(1) * scale;
-        lineRenderer.SetPosition(1, newLineRendPos);
-        lineCollider.SetPoints(new List<Vector2> { lineRenderer.GetPosition(0), lineRenderer.GetPosition(1) });
-
-        this.transform.Rotate(new Vector3(0, 0, angle ));
+        this.transform.Rotate(xAngle: 0, 0, angleDelta);
+        this.castLaser();
+        
     }
 
     override protected void HandleExecuteCommand()
@@ -86,21 +112,39 @@ public class HazardLaser : HazardObject
             {
                 this.currentCommand = this.commands.Dequeue();
                 this.commandStartTime = Time.time;
+                if(this.currentCommand is MoveBy)
+                {
+                    this.angleAmount = ((MoveBy) this.currentCommand).Angle;
+                }
             }
         }
+
         switch(this.currentCommand)
         {
-            case MoveCommand c:
+            case MoveBy c:
             HandleMove(c);
             break;
 
-            case FireCommand f:
+            case ToggleActivation f:
             HandleFire(f);
+            break;
+
+            case WaitCommand w:
+            HandleWait(w);
             break;
 
             case null:
             break;
         }
+    }
+
+    void Start()
+    {
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.enabled = false;
+        lineRenderer.SetPositions(new Vector3[2] { Vector2.zero, Vector2.up});
+        lineCollider = GetComponent<EdgeCollider2D>();
+        lineRenderer.alignment = LineAlignment.TransformZ;
     }
 
     void FixedUpdate()

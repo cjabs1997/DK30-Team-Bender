@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ProjectileCommands;
 
 [CreateAssetMenu(menuName="Hazards/Hazard Behaviors/Arc")]
 public class ArcAttack : BehaviorBase
