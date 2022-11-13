@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GravityChangeCommand : HazardCommand
-{
-    [SerializeField]
-    private float gravity;
-    public float Gravity => gravity;
-
-    public GravityChangeCommand(float gravity)
+namespace ProjectileCommands {
+    [CreateAssetMenu(menuName ="Hazards/Commands/Projectile/Change Gravity")]
+    public class ChangeGravityCommand : ProjectileCommand
     {
-        this.gravity = gravity;
+        #region Inspector
+        [SerializeField]
+        private float gravity;
+        public float Gravity => gravity;
+        #endregion
+
     }
 }

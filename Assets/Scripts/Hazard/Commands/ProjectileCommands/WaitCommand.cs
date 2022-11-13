@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaitCommand : HazardCommand
-{
-    [SerializeField]
-    private float seconds;
-    public float Seconds => seconds;
-
-    public WaitCommand(float seconds)
+namespace ProjectileCommands {
+    [CreateAssetMenu(menuName ="Hazards/Commands/Projectile/Wait")]
+    public class WaitCommand : ProjectileCommand
     {
-        this.seconds = seconds;
-    }
+        #region Inspector
+        [SerializeField]
+        private float seconds;
+        public float Seconds => seconds;
+        #endregion
 
+    }
 }

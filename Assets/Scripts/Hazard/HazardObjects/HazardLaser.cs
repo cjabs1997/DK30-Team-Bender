@@ -8,16 +8,21 @@ public class HazardLaser : HazardObject
     private LineRenderer lineRenderer;
     private EdgeCollider2D lineCollider;
     private RaycastHit2D castedObject;
+    private AudioSource audioSource;
     [SerializeField]
     private float laserDistance;
     public float LaserDistance => laserDistance;
-    private float angleAmount = 0;
-    private bool waiting = false;
+    [SerializeField]
+    private AudioClip soundWhileOn;
+    public AudioClip SoundWhileOn => soundWhileOn;
+    [SerializeField]
+    private LayerMask raycastLayerMask;
+    public LayerMask RaycastLayerMask => raycastLayerMask;
 
     private float getCastedDistance()
     {
         float castedDistance;
-        RaycastHit2D castedObject = Physics2D.Raycast(transform.position, transform.up, laserDistance);
+        RaycastHit2D castedObject = Physics2D.Raycast(transform.position, transform.up, laserDistance, raycastLayerMask);
         if(castedObject.collider != null)
         {
             castedDistance = Vector2.Distance(castedObject.point, transform.position);
@@ -29,34 +34,25 @@ public class HazardLaser : HazardObject
         return castedDistance;
     }
 
-    private Vector2 getDirectionVector(float angle, bool isRadians=false){
-        if(!isRadians)
-        {
-            angle *= Mathf.Rad2Deg;
-        }
-        return new Vector2(Mathf.Sin(angle), Mathf.Cos(angle));
-    }
-
     private void castLaser()
     {
         float castedDistance = getCastedDistance();
         lineRenderer.SetPosition(1, Vector2.up * castedDistance);
         if(!lineRenderer.enabled)
             lineRenderer.enabled = true;
-        Debug.Log(lineRenderer.GetPosition(1));
         lineCollider.SetPoints(new List<Vector2> { lineRenderer.GetPosition(0), lineRenderer.GetPosition(1) });
     }
 
     private IEnumerator Wait(float seconds)
     {
-        this.waiting = true;
+        this.currentCommandContext.Waiting = true;
         yield return new WaitForSeconds(seconds);
-        this.waiting = false;
-        this.currentCommand = null;
+        this.currentCommandContext.Waiting = false;
+        this.currentCommandContext = null;
     }
     private void HandleWait(WaitCommand command)
     {
-        if(!this.waiting)
+        if(!this.currentCommandContext.Waiting)
         {
             StartCoroutine(Wait(command.Seconds));
         }
@@ -66,13 +62,19 @@ public class HazardLaser : HazardObject
     {
         if(command.Activate)
         {
+            if(this.audioSource)
+            {
+                this.audioSource.clip = this.soundWhileOn;
+                this.audioSource.Play();
+            }
             castLaser();
         }
         else
         {
+            this.audioSource.Stop();
             Destroy(gameObject);
         }
-        this.currentCommand = null;
+        this.currentCommandContext = null;
     }
 
     void HandleMove(MoveBy command)
@@ -82,7 +84,7 @@ public class HazardLaser : HazardObject
         {
             this.transform.Rotate(xAngle: 0, 0, command.Angle);
             this.castLaser();
-            this.currentCommand = null;
+            this.currentCommandContext = null;
             return;
         }
         
@@ -98,7 +100,7 @@ public class HazardLaser : HazardObject
 
         var angleDelta = Mathf.Clamp(angleDiff, -command.Speed * Time.deltaTime, command.Speed * Time.deltaTime);
         if(angleDiff*angleDiff <= angleDelta*angleDelta)
-            this.currentCommand = null;
+            this.currentCommandContext = null;
         this.transform.Rotate(xAngle: 0, 0, angleDelta);
         this.castLaser();
         
@@ -106,20 +108,16 @@ public class HazardLaser : HazardObject
 
     override protected void HandleExecuteCommand()
     {
-        if(this.currentCommand == null)
+        if(this.currentCommandContext == null)
         {
-            if(this.commands.Count > 0)
+            if(this.commandContexts.Count > 0)
             {
-                this.currentCommand = this.commands.Dequeue();
+                this.currentCommandContext = this.commandContexts.Dequeue();
                 this.commandStartTime = Time.time;
-                if(this.currentCommand is MoveBy)
-                {
-                    this.angleAmount = ((MoveBy) this.currentCommand).Angle;
-                }
             }
         }
 
-        switch(this.currentCommand)
+        switch(this.currentCommandContext.Command)
         {
             case MoveBy c:
             HandleMove(c);
@@ -145,6 +143,7 @@ public class HazardLaser : HazardObject
         lineRenderer.SetPositions(new Vector3[2] { Vector2.zero, Vector2.up});
         lineCollider = GetComponent<EdgeCollider2D>();
         lineRenderer.alignment = LineAlignment.TransformZ;
+        audioSource = GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -152,4 +151,28 @@ public class HazardLaser : HazardObject
         HandleExecuteCommand();
     }
     
+    void OnCollisionEnter2D(Collision2D collider)
+    {
+        Debug.Log("Hit");
+        Debug.Log(collider);
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Hit");
+    }
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        Debug.Log("Hit");
+        Debug.Log(collider);
+        // TODO
+        // call collider's function with damage as argument
+        // if(collider.GetComponent<HazardProjectile>() == null)
+        //     Destroy(this.gameObject);
+
+        // if(collider.TryGetComponent<StateController>(out StateController stateController))
+        // {
+        //     // stateController.ApplyDamage(float);
+        //     // public bool ApplyDamage(float damage);
+        // }
+    }
 }

@@ -19,10 +19,10 @@ public class HazardSequenceDirector : MonoBehaviour
 
     public IEnumerator PlaySequence(HazardSequence sequence)
     {
-        sequence.Controller.PlayHazard(sequence.Hazard, 
-                        sequence.Controller.transform.position,
-                        sequence.Target
-                        );
+        // sequence.Controller.PlayHazard(sequence.Hazard, 
+        //                 sequence.Controller.transform.position,
+        //                 sequence.Target
+        //                 );
         yield return null;
     }
 

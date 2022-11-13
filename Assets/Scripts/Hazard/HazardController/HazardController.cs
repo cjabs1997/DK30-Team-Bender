@@ -1,60 +1,88 @@
 using UnityEngine;
-
+using System.Collections.Generic;
+using System.Collections;
 public class HazardController : MonoBehaviour
 {   
-    [SerializeField] private Hazard hazard;
-    public Hazard Hazard => hazard;
-    [SerializeField]
-    private Transform to;
-    public Transform To => to;
+    #region Inspector
     [SerializeField]
     private bool cycles;
     public bool Cycles => cycles;
     [SerializeField]
     private int cyclesToFire;
     public int CyclesToFire => cyclesToFire;
-    private int cyclesPassed = 0;
-    private Rigidbody2D BaseBody;
-    private AudioSource audioSource;
     [SerializeField]
-    HazardCommand[] testList;
-    
+    private Sequence[] hazardSequences;
+    public Sequence[] HazardSequences => hazardSequences;
+    [SerializeField]
+    private SimpleAudioEvent onFireSound;
+    public SimpleAudioEvent OnFireSound => onFireSound;
+    #endregion
 
-    [SerializeField]
-    private SimpleAudioEvent audioEventShoot;
-    public SimpleAudioEvent AudioEventShoot => audioEventShoot;
-    
+    private int cyclesPassed = 0;
+    private AudioSource audioSource;
+    private Animator animator;
     public void CycleEnd()
     {
         if(!cycles) return;
         cyclesPassed++;
         if(cyclesPassed >= cyclesToFire)
         {
-            this.PlayHazard();
             cyclesPassed = 0;
         }
     }
 
-    public void PlayHazard(Hazard hazard, Vector2 from, Transform to)
-    {
-        this.hazard = hazard;
-        this.hazard.StartSequence(from, to, this);
-    }
-
-    public void PlayHazard()
-    {
-        this.hazard.StartSequence(this.transform.position, this.to, this);
-    }
-
-    public void PlayShootSound()
-    {
-        this.audioEventShoot.Play(this.audioSource);
-    }
-
     void Start()
     {
-        BaseBody = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
+        animator = GetComponent<Animator>();
+    }
+
+    public void Fire()
+    {
+        foreach(var sequence in this.hazardSequences)
+        {
+            StartCoroutine(this.StartSequence(sequence));
+        }
+    }
+
+    public Queue<CommandContext> ProcessSequence(GameObject caller, Sequence sequence)
+    {
+        var commands = new Queue<CommandContext>();
+        foreach(var sequenceStep in sequence.SequenceSteps)
+        {
+            foreach(var command in sequenceStep.Attack.Commands)
+            {
+                var commandContext = new CommandContext(command, caller.transform.position, sequenceStep.ToTransform, caller);
+                commands.Enqueue(commandContext);
+            }
+        }
+        return commands;
+    }
+
+    public IEnumerator StartSequence(Sequence sequence)
+    {
+        GameObject obj = GameObject.Instantiate(sequence.ProjectilePrefab, this.gameObject.transform);
+        obj.SetActive(false);
+        HazardObject script = obj.GetComponent<HazardObject>();
+        var commandQueue = this.ProcessSequence(this.gameObject, sequence);
+        script.ExecuteCommands(commandQueue);
+        obj.SetActive(true);
+        yield return null;
+    }
+
+    void Update()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            // this.Fire();
+            if(this.OnFireSound != null && this.audioSource != null)
+                this.OnFireSound.Play(this.audioSource);
+
+            if(this.animator != null)
+                this.animator.SetTrigger("OnFire");
+            else
+                this.Fire();
+        }
     }
 
 }
