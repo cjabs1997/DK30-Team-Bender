@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0e03cefd114b8549b6484cb1d9799fb, type: 3}
+  m_Name: OnDefaultFire
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: 4f900582274406741af9749cf03cb360, type: 3}
+  - {fileID: 8300000, guid: c3eda4793380c9f4d976422b9f2c6b55, type: 3}
+  - {fileID: 8300000, guid: b9ce941ef247f4f4ba5e3fb6a80ca809, type: 3}
+  - {fileID: 8300000, guid: cb23cef91f7c2f643b6ddb3f0a8088ce, type: 3}
+  - {fileID: 8300000, guid: 993698cf9968d6b4294ba2eb13f6f968, type: 3}
+  - {fileID: 8300000, guid: 56c74bef5f4867c4a84a31e7985df88c, type: 3}
+  minVolume: 0.1
+  maxVolume: 0.3
+  minPitch: 0.5
+  maxPitch: 0.9

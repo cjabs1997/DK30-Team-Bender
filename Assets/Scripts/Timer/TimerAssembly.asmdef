@@ -1,0 +1,16 @@
+{
+    "name": "TimerAssembly",
+    "rootNamespace": "",
+    "references": [
+        "GUID:607213ba1bda1154fa21905353b2073a"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
