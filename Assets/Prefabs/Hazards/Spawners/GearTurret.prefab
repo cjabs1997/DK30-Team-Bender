@@ -79,6 +79,8 @@ MonoBehaviour:
       toTransform: {fileID: 0}
     projectilePrefab: {fileID: 6795856549782781425, guid: 1c3f17ab7135fad4eb72e071d2417812, type: 3}
   onFireSound: {fileID: 0}
+  loop: 1
+  delayBetweenFire: 10
 --- !u!212 &7159611447517756527
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -120,7 +122,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: daf2ab606d4db0d4f9ecf4c02137d2a8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0aa909a4f0e22e143a96edaec2e9bc80, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

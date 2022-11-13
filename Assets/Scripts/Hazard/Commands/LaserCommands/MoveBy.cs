@@ -22,16 +22,5 @@ namespace LaserCommands {
         {
             return Mathf.Atan2(p1.y*p2.x - p1.x*p2.y, p1.x*p2.x+p1.y*p2.y) * Mathf.Rad2Deg;
         }
-        // private Transform toTransform;
-        // public Transform ToTransform => toTransform;
-
-        // private Vector2 origin;
-        // public Vector2 Origin => origin;
-
-        // public override void Hydrate(AttackStep attackStep, GameObject caller)
-        // {
-        //     this.toTransform = attackStep.ToTransform;
-        //     this.origin = caller.transform.position;
-        // }
     }
 }

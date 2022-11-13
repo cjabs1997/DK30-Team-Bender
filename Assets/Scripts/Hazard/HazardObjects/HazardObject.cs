@@ -3,6 +3,9 @@ using UnityEngine;
 
 abstract public class HazardObject : MonoBehaviour
 {   
+    [SerializeField]
+    private float damageToApply;
+    public float DamageToApply => damageToApply;
     protected Queue<CommandContext> commandContexts;
     protected CommandContext currentCommandContext;
     protected float commandStartTime;

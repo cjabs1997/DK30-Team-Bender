@@ -5,36 +5,70 @@ public class HazardController : MonoBehaviour
 {   
     #region Inspector
     [SerializeField]
-    private bool cycles;
-    public bool Cycles => cycles;
+    private float delayBetweenFire;
+    public float DelayBetweenFire => delayBetweenFire;
     [SerializeField]
-    private int cyclesToFire;
-    public int CyclesToFire => cyclesToFire;
-    [SerializeField]
-    private Sequence[] hazardSequences;
-    public Sequence[] HazardSequences => hazardSequences;
+    private bool loop;
+    public bool Loop => loop;
     [SerializeField]
     private SimpleAudioEvent onFireSound;
     public SimpleAudioEvent OnFireSound => onFireSound;
+    [SerializeField]
+    private Sequence[] hazardSequences;
+    public Sequence[] HazardSequences => hazardSequences;
     #endregion
 
-    private int cyclesPassed = 0;
+    private bool firing;
+    public bool Firing { get; set; }
+    private bool canFire;
+    private float lastFireTime;
     private AudioSource audioSource;
     private Animator animator;
-    public void CycleEnd()
-    {
-        if(!cycles) return;
-        cyclesPassed++;
-        if(cyclesPassed >= cyclesToFire)
-        {
-            cyclesPassed = 0;
-        }
-    }
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
+        this.canFire = true;
+        this.lastFireTime = Time.realtimeSinceStartup  - this.delayBetweenFire;
+        this.firing = false;
+    }
+
+    public void ToggleFiringOff()
+    {
+        this.firing = false;
+    }
+
+    public void ToggleFiringOn()
+    {
+        this.firing = true;
+    }
+
+    public void ToggleLaserOff()
+    {
+        HazardLaser[] lasers = this.GetComponentsInChildren<HazardLaser>();
+        if(lasers.Length > 0)
+        {
+            foreach(var laser in lasers)
+            {
+                Destroy(laser.gameObject);
+            }
+        }
+    }
+
+    public void PreFire()
+    {
+        if(!this.canFire) return;
+        this.canFire = false;
+        this.lastFireTime = Time.realtimeSinceStartup;
+
+        if(this.OnFireSound != null && this.audioSource != null)
+            this.OnFireSound.Play(this.audioSource);
+
+        if(this.animator != null)
+            this.animator.SetTrigger("OnFire");
+        else
+            this.Fire();
     }
 
     public void Fire()
@@ -45,7 +79,7 @@ public class HazardController : MonoBehaviour
         }
     }
 
-    public Queue<CommandContext> ProcessSequence(GameObject caller, Sequence sequence)
+    private Queue<CommandContext> ProcessSequence(GameObject caller, Sequence sequence)
     {
         var commands = new Queue<CommandContext>();
         foreach(var sequenceStep in sequence.SequenceSteps)
@@ -59,7 +93,7 @@ public class HazardController : MonoBehaviour
         return commands;
     }
 
-    public IEnumerator StartSequence(Sequence sequence)
+    private IEnumerator StartSequence(Sequence sequence)
     {
         GameObject obj = GameObject.Instantiate(sequence.ProjectilePrefab, this.gameObject.transform);
         obj.SetActive(false);
@@ -70,19 +104,19 @@ public class HazardController : MonoBehaviour
         yield return null;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if(Input.GetMouseButtonDown(0))
+        this.canFire = Time.realtimeSinceStartup - this.lastFireTime > this.delayBetweenFire;
+        if(this.firing && this.canFire)
         {
-            // this.Fire();
-            if(this.OnFireSound != null && this.audioSource != null)
-                this.OnFireSound.Play(this.audioSource);
-
-            if(this.animator != null)
-                this.animator.SetTrigger("OnFire");
-            else
-                this.Fire();
+            this.PreFire();
+            if(!this.loop)
+                this.ToggleFiringOff();
         }
     }
 
+    void Update()
+    {
+        
+    }
 }

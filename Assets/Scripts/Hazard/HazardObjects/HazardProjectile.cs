@@ -10,6 +10,9 @@ public class HazardProjectile : HazardObject
     [SerializeField]
     private SimpleAudioEvent soundOnMove;
     public SimpleAudioEvent SoundOnMove => soundOnMove;
+    [SerializeField]
+    private LayerMask collisionLayers;
+    public LayerMask CollisionLayers => collisionLayers;
 
     Rigidbody2D m_RigidBody; 
     SpriteRenderer spriteRenderer;
@@ -172,12 +175,16 @@ public class HazardProjectile : HazardObject
     {
         Debug.Log("Hit");
         Debug.Log(collider);
+        if(collider.IsTouchingLayers(this.collisionLayers))
+        {
+            Destroy(this.gameObject);
+        }
         // TODO
         // call collider's function with damage as argument
         // if(collider.GetComponent<HazardProjectile>() == null)
         //     Destroy(this.gameObject);
 
-        // if(collider.TryGetComponent<StateController>(out StateController stateController))
+        // if(collider.TryGetComponent<PlayerStateController>(out PlayerStateController stateController))
         // {
         //     // stateController.ApplyDamage(float);
         //     // public bool ApplyDamage(float damage);
@@ -196,6 +203,7 @@ public class HazardProjectile : HazardObject
 
     void OnBecameInvisible()
     {
+        // TODO make this based on outside scene, not camera
         Destroy(gameObject);
     }
 }

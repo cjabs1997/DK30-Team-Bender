@@ -38,10 +38,10 @@ public class HazardSequenceDirector : MonoBehaviour
 
     public void onCycleEnd()
     {
-        foreach(var hazard in this.hazardControllers)
-        {
-            hazard.CycleEnd();
-        }
+        // foreach(var hazard in this.hazardControllers)
+        // {
+        //     hazard.CycleEnd();
+        // }
     }
 
     void Start()

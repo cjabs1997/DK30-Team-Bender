@@ -19,6 +19,8 @@ public class HazardLaser : HazardObject
     private LayerMask raycastLayerMask;
     public LayerMask RaycastLayerMask => raycastLayerMask;
 
+    // private Quaternion og_rotation;
+
     private float getCastedDistance()
     {
         float castedDistance;
@@ -72,6 +74,8 @@ public class HazardLaser : HazardObject
         else
         {
             this.audioSource.Stop();
+            // var t = this.transform.parent.transform;
+            // t.rotation = og_rotation;
             Destroy(gameObject);
         }
         this.currentCommandContext = null;
@@ -79,17 +83,19 @@ public class HazardLaser : HazardObject
 
     void HandleMove(MoveBy command)
     {
-
-        if(this.lineRenderer == null)
+        var commandAngle = MoveBy.GetSignedAngle(transform.up, (Vector2) this.currentCommandContext.To - this.currentCommandContext.From);
+        
+        if(!this.lineRenderer.enabled)
         {
-            this.transform.Rotate(xAngle: 0, 0, command.Angle);
+            Debug.Log("Linerenderer null");
+            this.transform.Rotate(xAngle: 0, 0, commandAngle);
             this.castLaser();
             this.currentCommandContext = null;
             return;
         }
         
         var currentAngle = MoveBy.GetSignedAngle(Vector2.up, transform.up);
-        var commandAngle = command.Angle;
+        commandAngle = MoveBy.GetSignedAngle(Vector2.up, (Vector2) this.currentCommandContext.To - this.currentCommandContext.From);
         float angleDiff = currentAngle - commandAngle;
 
         if(angleDiff > 180)
@@ -116,6 +122,8 @@ public class HazardLaser : HazardObject
                 this.commandStartTime = Time.time;
             }
         }
+
+        if(this.currentCommandContext == null) return;
 
         switch(this.currentCommandContext.Command)
         {
@@ -144,6 +152,7 @@ public class HazardLaser : HazardObject
         lineCollider = GetComponent<EdgeCollider2D>();
         lineRenderer.alignment = LineAlignment.TransformZ;
         audioSource = GetComponent<AudioSource>();
+        // og_rotation = this.transform.parent.transform.rotation;
     }
 
     void FixedUpdate()
@@ -151,15 +160,12 @@ public class HazardLaser : HazardObject
         HandleExecuteCommand();
     }
     
-    void OnCollisionEnter2D(Collision2D collider)
-    {
-        Debug.Log("Hit");
-        Debug.Log(collider);
-    }
-    void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("Hit");
-    }
+    // void OnCollisionEnter2D(Collision2D collider)
+    // {
+    //     Debug.Log("Hit");
+    //     Debug.Log(collider);
+    // }
+
     void OnTriggerEnter2D(Collider2D collider)
     {
         Debug.Log("Hit");
