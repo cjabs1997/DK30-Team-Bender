@@ -90,11 +90,11 @@ public class PlayerStateController : StateController<PlayerState, PlayerStateFac
 
     private IEnumerator DamageCooldown()
     {
-        StartCoroutine(DamageFlash());
+        Coroutine flashRoutine = StartCoroutine(DamageFlash());
         yield return new WaitForSeconds(_stats.DamageCooldown);
-
-        _spriteRenderer.color = _startingColor;
+        StopCoroutine(flashRoutine);
         _damageable = true;
+        _spriteRenderer.color = _startingColor;
     }
 
     private IEnumerator DamageFlash()
