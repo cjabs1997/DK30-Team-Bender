@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd4948c170f27b4f8e34f537f034dc2, type: 3}
+  m_Name: GearMove 3
+  m_EditorClassIdentifier: 
+  commands:
+  - {fileID: 11400000, guid: e1d7ee792151c36448f28c768beef26e, type: 2}
+  - {fileID: 11400000, guid: 7beb009a8d8ad3944ba7611c28ec8f03, type: 2}

@@ -12,10 +12,6 @@ public class HazardSequence
     public Transform Target => target;
 
     [SerializeField]
-    private Hazard hazard;
-    public Hazard Hazard => hazard;
-
-    [SerializeField]
     private float waitBefore;
     public float WaitBefore => waitBefore;
     [SerializeField]

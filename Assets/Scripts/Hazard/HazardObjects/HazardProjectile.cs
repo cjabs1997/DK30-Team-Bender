@@ -1,27 +1,30 @@
 using System.Collections;
 using UnityEngine;
-
+using ProjectileCommands;
 public class HazardProjectile : HazardObject
 {
     [SerializeField] bool rotate;
     [SerializeField] float degreesPerSecond;
     [SerializeField] float maxSteeringForce;
 
-    [SerializeField] AudioClip SoundOnMove;
+    [SerializeField]
+    private SimpleAudioEvent soundOnMove;
+    public SimpleAudioEvent SoundOnMove => soundOnMove;
+    [SerializeField]
+    private LayerMask collisionLayers;
+    public LayerMask CollisionLayers => collisionLayers;
 
     Rigidbody2D m_RigidBody; 
     SpriteRenderer spriteRenderer;
-
-
-    private bool waiting;
+    AudioSource audioSource;
     private float spriteRadius;
 
     void Start()
     {
         this.m_RigidBody = this.GetComponent<Rigidbody2D>();
         this.spriteRenderer = this.GetComponent<SpriteRenderer>();
+        this.audioSource = this.GetComponent<AudioSource>();
         this.spriteRadius = (spriteRenderer.bounds.center - spriteRenderer.bounds.size).magnitude;
-        this.waiting = false;
     }
 
     private Vector2 CalculateVectorForce(Vector2 from, Vector2 to, float speed, float mass)
@@ -50,96 +53,93 @@ public class HazardProjectile : HazardObject
     }
     private IEnumerator Wait(float seconds)
     {
-        this.waiting = true;
+        this.currentCommandContext.Waiting = true;
         yield return new WaitForSeconds(seconds);
-        this.waiting = false;
-        this.currentCommand = null;
+        this.currentCommandContext.Waiting = false;
+        this.currentCommandContext = null;
     }
 
+    private void HandleWait(WaitCommand command)
+    {
+        if(!this.currentCommandContext.Waiting)
+        {
+            StartCoroutine(Wait(command.Seconds));
+        }
+    }
     
     private void HandleFire(FireCommand command)
     {
-        var vectorForce = this.CalculateVectorForce(command.From, (Vector2)command.To, command.Speed,m_RigidBody.mass);
+        var vectorForce = this.CalculateVectorForce(m_RigidBody.position, (Vector2)this.currentCommandContext.To, command.Speed,m_RigidBody.mass);
+        this.transform.rotation = Quaternion.FromToRotation(Vector2.left, vectorForce);
         m_RigidBody.AddForce(vectorForce);
-        this.currentCommand = null;
+        this.currentCommandContext = null;
     }
 
     private void HandleMove(MoveCommand command)
     {
-        if(Vector2.Distance(m_RigidBody.position, command.To) <= 0.01){
+        if(Vector2.Distance(m_RigidBody.position, this.currentCommandContext.To) <= 0.01){
             m_RigidBody.velocity = Vector2.zero;
-            this.currentCommand = null;
+            this.currentCommandContext = null;
             m_RigidBody.drag = 0;
             return;
         }
 
         if(Time.time - this.commandStartTime > command.TimeLimit)
         {
-            this.currentCommand = null;
+            this.currentCommandContext = null;
             m_RigidBody.drag = 0;
             return;
         }
-
         Vector2 forceVector;
         if(command.SlowArrival)
         {
-            forceVector = CalculateSlowArrivalVectorForce(m_RigidBody.position, command.To, command.Speed, m_RigidBody.mass, command.SlowArrivalRadius);
+            forceVector = CalculateSlowArrivalVectorForce(m_RigidBody.position, this.currentCommandContext.To, command.Speed, m_RigidBody.mass, command.SlowArrivalRadius);
         }
         else
         {
-            forceVector = CalculateVectorForce(m_RigidBody.position, command.To, command.Speed, m_RigidBody.mass);
+            forceVector = CalculateVectorForce(m_RigidBody.position, this.currentCommandContext.To, command.Speed, m_RigidBody.mass);
         }
-
         Vector2 steering = (forceVector - m_RigidBody.velocity) * Time.deltaTime;
         Vector2 steerForce = m_RigidBody.mass * steering;
         steerForce = Vector2.ClampMagnitude(forceVector, maxSteeringForce);
         m_RigidBody.AddForce(steerForce);
-
     }
 
-    private void HandleDragChange(DragChangeCommand command)
+    private void HandleDragChange(ChangeDragCommand command)
     {
         m_RigidBody.drag = command.LinearDrag;
         m_RigidBody.angularDrag = command.AngularDrag;
-        this.currentCommand = null;
+        this.currentCommandContext = null;
     }
 
-    private void HandleWait(WaitCommand command)
-    {
-        if(!this.waiting)
-        {
-            StartCoroutine(Wait(command.Seconds));
-        }
-    }
 
-    private void HandleGravityChange(GravityChangeCommand command)
+    private void HandleGravityChange(ChangeGravityCommand command)
     {
         m_RigidBody.gravityScale = command.Gravity;
-        this.currentCommand = null;
+        this.currentCommandContext = null;
     }
-
+    
     protected override void HandleExecuteCommand()
     {
-        if(this.currentCommand == null)
+        if(this.currentCommandContext == null)
         {
-            if(this.commands.Count > 0){
-                this.currentCommand = this.commands.Dequeue();
+            if(this.commandContexts.Count > 0){
+                this.currentCommandContext = this.commandContexts.Dequeue();
                 this.commandStartTime = Time.time;
-            }
-
-            if(this.currentCommand is MoveCommand)
-            {
-                if(this.SoundOnMove != null)
+            
+                if(this.currentCommandContext.Command is MoveCommand || this.currentCommandContext.Command is FireCommand)
+                {
+                    if(this.SoundOnMove != null)
                     {
-                        var audio = this.GetComponent<AudioSource>();
-                        audio.clip = this.SoundOnMove;
-                        audio.Play();
+                        this.SoundOnMove.Play(this.audioSource);
                     }
+                }
             }
-
         }
 
-        switch(this.currentCommand)
+        if(this.currentCommandContext == null) return;
+
+        switch(this.currentCommandContext.Command)
         {
             case FireCommand f:
             HandleFire(f);
@@ -147,18 +147,18 @@ public class HazardProjectile : HazardObject
 
             case MoveCommand m:
             m_RigidBody.drag = 5;
-            HandleMove(m);
+            HandleMove(command: m);
             break;
 
             case WaitCommand w:
             HandleWait(w);
             break;
 
-            case DragChangeCommand d:
+            case ChangeDragCommand d:
             HandleDragChange(d);
             break;
 
-            case GravityChangeCommand g:
+            case ChangeGravityCommand g:
             HandleGravityChange(g);
             break;
 
@@ -171,16 +171,20 @@ public class HazardProjectile : HazardObject
         HandleExecuteCommand();
     }
 
-
-
     void OnTriggerEnter2D(Collider2D collider)
     {
+        Debug.Log("Hit");
+        Debug.Log(collider);
+        if(collider.IsTouchingLayers(this.collisionLayers))
+        {
+            Destroy(this.gameObject);
+        }
         // TODO
         // call collider's function with damage as argument
         // if(collider.GetComponent<HazardProjectile>() == null)
         //     Destroy(this.gameObject);
 
-        // if(collider.TryGetComponent<StateController>(out StateController stateController))
+        // if(collider.TryGetComponent<PlayerStateController>(out PlayerStateController stateController))
         // {
         //     // stateController.ApplyDamage(float);
         //     // public bool ApplyDamage(float damage);
@@ -199,6 +203,7 @@ public class HazardProjectile : HazardObject
 
     void OnBecameInvisible()
     {
+        // TODO make this based on outside scene, not camera
         Destroy(gameObject);
     }
 }
