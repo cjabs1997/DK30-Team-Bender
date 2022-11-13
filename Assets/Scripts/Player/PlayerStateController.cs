@@ -6,10 +6,12 @@ public class PlayerStateController : StateController<PlayerState, PlayerStateFac
 {
     public Terminal CurrentTerminal { get; set; }
     [SerializeField] GameEvent _playerDeadEvent;
+    [SerializeField] GameEvent _playerDamagedEvent;
 
 
 
-    private bool _damageable { get; set; }
+    private bool _damageable { get; set; } // This and below are not great but make the code trivial b/c no state integration soo....
+    private bool _dead { get; set; }
     [SerializeField] private PlayerStats _stats;
     private Color _startingColor { get; set; }
     private SpriteRenderer _spriteRenderer;
@@ -61,16 +63,18 @@ public class PlayerStateController : StateController<PlayerState, PlayerStateFac
 
         if (_damageable)
         {
-            _damageable = false;
             _stats.CurrentHealth = Mathf.Max(0f, _stats.CurrentHealth - damage); // Just in case :)
             Debug.Log("Player took: " + damage + " | HP left: " + _stats.CurrentHealth);
-            if (_stats.CurrentHealth <= 0f) 
+            if (_stats.CurrentHealth <= 0f && !_dead) 
             {
-                //_playerDeadEvent.Raise();
+                _dead = true;
+                _playerDeadEvent.Raise();
                 Debug.Log("Player DEAD!");
             }
-            else
+            else if(!_dead)
             {
+                _damageable = false;
+                _playerDamagedEvent.Raise();
                 StartCoroutine(DamageCooldown());
             }
             return true;
