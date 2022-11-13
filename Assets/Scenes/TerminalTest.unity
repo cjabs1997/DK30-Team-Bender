@@ -1174,7 +1174,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3451433114369133375, guid: e199549df538e3a498202bde506811a8, type: 3}
       propertyPath: m_LocalScale.x
-      value: 16.4065
+      value: 25.05
       objectReference: {fileID: 0}
     - target: {fileID: 3451433114369133375, guid: e199549df538e3a498202bde506811a8, type: 3}
       propertyPath: m_LocalScale.y
@@ -1266,6 +1266,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7287059344942394247, guid: 0f1a0af1675055746bf679cbc57e5fcf, type: 3}
+      propertyPath: _stats
+      value: 
+      objectReference: {fileID: 11400000, guid: 04b3ff53e56282f4f8deb7f313f36d92, type: 2}
     - target: {fileID: 7287059344942394296, guid: 0f1a0af1675055746bf679cbc57e5fcf, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1314,5 +1318,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7287059346027014883, guid: 0f1a0af1675055746bf679cbc57e5fcf, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7287059346027014883, guid: 0f1a0af1675055746bf679cbc57e5fcf, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7287059346027014892, guid: 0f1a0af1675055746bf679cbc57e5fcf, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 35395e03cc3958b4890631ec87b84d72, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f1a0af1675055746bf679cbc57e5fcf, type: 3}

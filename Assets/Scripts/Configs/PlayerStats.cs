@@ -22,7 +22,7 @@ public class PlayerStats : ScriptableObject
     [SerializeField] float _gravity;
     public float Gravity => _gravity;
 
-    [Tooltip("")]
+    [Tooltip("Maximum amount of force that can be applied to the player via input while they are in the air")]
     [SerializeField] private float _maxHorizontalForceInAir;
     public float MaxHorizontalForceInAir => _maxHorizontalForceInAir;
 
@@ -47,5 +47,17 @@ public class PlayerStats : ScriptableObject
     [Tooltip("How long until the player should stop when they release inputs")]
     [SerializeField] private float _stopDistance;
     public float StopDistance => _stopDistance;
+
+
+    [Header("Combat")]
+    [Tooltip("Maximum amount of health for the player")]
+    [SerializeField] private float _maxHealth;
+    public float MaxHealth { get { return _maxHealth; } }
+
+    public float CurrentHealth { get; set; }
+
+    [Tooltip("Time before the player can take damage again")]
+    [SerializeField] private float _damageCooldown;
+    public float DamageCooldown { get { return _damageCooldown; } }
 
 }
