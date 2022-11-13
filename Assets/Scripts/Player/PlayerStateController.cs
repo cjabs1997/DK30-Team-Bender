@@ -68,6 +68,8 @@ public class PlayerStateController : StateController<PlayerState, PlayerStateFac
             if (_stats.CurrentHealth <= 0f && !_dead) 
             {
                 _dead = true;
+                StopAllCoroutines();
+                TransitionToState(this.StateFactory.GetState(States.State.dead));
                 _playerDeadEvent.Raise();
                 Debug.Log("Player DEAD!");
             }
