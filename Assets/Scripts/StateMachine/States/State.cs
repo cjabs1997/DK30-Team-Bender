@@ -10,6 +10,7 @@ namespace States
         fall,
         attack,
         inTerminal,
+        dead,
         delayedJump,
         playerInRange,
         terminalComplete,

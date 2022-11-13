@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ebf34be5ca36994db90b7259bf275f0, type: 3}
-  m_Name: New Player State Factory
+  m_Script: {fileID: 11500000, guid: 14a335662ff00e948992aa31824fa3ef, type: 3}
+  m_Name: PlayerDamaged
   m_EditorClassIdentifier: 
-  stateList: []
