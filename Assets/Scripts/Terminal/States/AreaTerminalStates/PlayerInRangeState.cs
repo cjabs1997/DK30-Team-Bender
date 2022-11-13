@@ -21,7 +21,7 @@ public class PlayerInRangeState : AreaTerminalState
 
     public override void HandleStateTransitions(WaitInAreaTerminalController controller)
     { 
-        if(controller.Progress >= controller.TimeToComplete)
+        if(controller.Progress >= controller.Terminal.TimeToComplete)
         {
             controller.TransitionToState(controller.StateFactory.GetState(State.terminalComplete));
             // Among other things
@@ -41,7 +41,7 @@ public class PlayerInRangeState : AreaTerminalState
     {
         controller.Progress += Time.deltaTime;
 
-        controller.TerminalProgressBar.UpdateFill(Mathf.Min(controller.Progress / controller.TimeToComplete));
+        controller.TerminalProgressBar.UpdateFill(Mathf.Min(controller.Progress / controller.Terminal.TimeToComplete));
         HandleStateTransitions(controller);
     }
 
