@@ -11,11 +11,17 @@ public class HazardController : MonoBehaviour
     private bool loop;
     public bool Loop => loop;
     [SerializeField]
+    private bool startFiring;
+    public bool StartFiring => startFiring;
+    [SerializeField]
     private SimpleAudioEvent onFireSound;
     public SimpleAudioEvent OnFireSound => onFireSound;
     [SerializeField]
     private Sequence[] hazardSequences;
     public Sequence[] HazardSequences => hazardSequences;
+    [SerializeField]
+    private bool test;
+    public bool Test => test;
     #endregion
 
     private bool firing;
@@ -31,7 +37,7 @@ public class HazardController : MonoBehaviour
         animator = GetComponent<Animator>();
         this.canFire = true;
         this.lastFireTime = Time.realtimeSinceStartup  - this.delayBetweenFire;
-        this.firing = false;
+        this.firing = this.startFiring;
     }
 
     public void ToggleFiringOff()
@@ -113,10 +119,17 @@ public class HazardController : MonoBehaviour
             if(!this.loop)
                 this.ToggleFiringOff();
         }
+
     }
 
     void Update()
     {
-        
+        if(this.test)
+        {
+            if(Input.GetMouseButtonDown(0))
+            {
+                this.Fire();
+            }
+        }
     }
 }

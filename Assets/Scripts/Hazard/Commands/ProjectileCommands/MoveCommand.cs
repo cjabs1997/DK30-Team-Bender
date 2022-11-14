@@ -26,21 +26,10 @@ namespace ProjectileCommands {
         [SerializeField]
         private float timeLimit;
         public float TimeLimit => timeLimit;
+        [SerializeField]
+        private float maxSteeringForce;
+        public float MaxSteeringForce => maxSteeringForce;
         #endregion
-
-        // private Vector2 from;
-        // public Vector2 From => from;
-        // private Transform toTransform;
-        // public Transform ToTransform => toTransform;
-        // private Vector2 to;
-        // public Vector2 To { get { return toTransform != null ? (Vector2) toTransform.position : to ;} }
-
-        // public override void Hydrate(AttackStep sequence, GameObject caller)
-        // {
-        //     this.from = caller.transform.position;
-        //     this.toTransform = sequence.ToTransform;
-        //     this.to = sequence.To;
-        // }
 
     }
 }

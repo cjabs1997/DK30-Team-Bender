@@ -9,13 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21fc049ebc8209148958712fa1845877, type: 3}
-  m_Name: GearChase
+  m_Script: {fileID: 11500000, guid: 5fd4948c170f27b4f8e34f537f034dc2, type: 3}
+  m_Name: GearWait 5
   m_EditorClassIdentifier: 
-  speed: 30
-  chaseTarget: 0
-  chaseTimelimit: 2
-  slowArrival: 0
-  slowArrivalRadius: 0
-  timeLimit: 2
-  maxSteeringForce: 18
+  commands:
+  - {fileID: 11400000, guid: 585ddb0e3d1f6a848be60b342c57d09c, type: 2}

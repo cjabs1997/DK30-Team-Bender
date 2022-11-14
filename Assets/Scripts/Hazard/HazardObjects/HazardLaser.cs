@@ -19,8 +19,6 @@ public class HazardLaser : HazardObject
     private LayerMask raycastLayerMask;
     public LayerMask RaycastLayerMask => raycastLayerMask;
 
-    // private Quaternion og_rotation;
-
     private float getCastedDistance()
     {
         float castedDistance;
@@ -74,8 +72,6 @@ public class HazardLaser : HazardObject
         else
         {
             this.audioSource.Stop();
-            // var t = this.transform.parent.transform;
-            // t.rotation = og_rotation;
             Destroy(gameObject);
         }
         this.currentCommandContext = null;
@@ -87,7 +83,6 @@ public class HazardLaser : HazardObject
         
         if(!this.lineRenderer.enabled)
         {
-            Debug.Log("Linerenderer null");
             this.transform.Rotate(xAngle: 0, 0, commandAngle);
             this.castLaser();
             this.currentCommandContext = null;
@@ -152,7 +147,6 @@ public class HazardLaser : HazardObject
         lineCollider = GetComponent<EdgeCollider2D>();
         lineRenderer.alignment = LineAlignment.TransformZ;
         audioSource = GetComponent<AudioSource>();
-        // og_rotation = this.transform.parent.transform.rotation;
     }
 
     void FixedUpdate()

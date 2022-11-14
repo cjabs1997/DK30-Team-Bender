@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5015467237202495626}
-  m_Layer: 11
+  m_Layer: 8
   m_Name: SubEmitter0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: -7524573857276661040}
   - component: {fileID: 5462492781982169412}
   - component: {fileID: 3276170454174721604}
-  m_Layer: 11
+  m_Layer: 8
   m_Name: DefaultHazard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,13 +156,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageToApply: 0
-  rotate: 0
-  degreesPerSecond: 0
-  maxSteeringForce: 12
+  rotate: 1
+  degreesPerSecond: 360
   soundOnMove: {fileID: 0}
   collisionLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
 --- !u!198 &7140322422170850031
 ParticleSystem:
   m_ObjectHideFlags: 0

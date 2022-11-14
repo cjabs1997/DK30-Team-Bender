@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -3651076649404359633}
   - component: {fileID: -5762895957973933385}
   - component: {fileID: -1370811166766584262}
-  m_Layer: 11
+  m_Layer: 8
   m_Name: LazerHazard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,11 +147,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea15bad731f8e76479c8165b17ccd12e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageToApply: 0
   laserDistance: 50
   soundWhileOn: {fileID: 8300000, guid: 9308eae4cb6fb8e43be6133c2335756b, type: 3}
   raycastLayerMask:
     serializedVersion: 2
-    m_Bits: 17
+    m_Bits: 16
 --- !u!68 &-3651076649404359633
 EdgeCollider2D:
   m_ObjectHideFlags: 0

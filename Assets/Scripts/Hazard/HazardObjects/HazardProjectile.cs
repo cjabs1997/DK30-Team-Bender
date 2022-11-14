@@ -5,7 +5,6 @@ public class HazardProjectile : HazardObject
 {
     [SerializeField] bool rotate;
     [SerializeField] float degreesPerSecond;
-    [SerializeField] float maxSteeringForce;
 
     [SerializeField]
     private SimpleAudioEvent soundOnMove;
@@ -101,7 +100,7 @@ public class HazardProjectile : HazardObject
         }
         Vector2 steering = (forceVector - m_RigidBody.velocity) * Time.deltaTime;
         Vector2 steerForce = m_RigidBody.mass * steering;
-        steerForce = Vector2.ClampMagnitude(forceVector, maxSteeringForce);
+        steerForce = Vector2.ClampMagnitude(forceVector, command.MaxSteeringForce);
         m_RigidBody.AddForce(steerForce);
     }
 
@@ -135,6 +134,7 @@ public class HazardProjectile : HazardObject
                     }
                 }
             }
+            Debug.Log(this.currentCommandContext.Command);
         }
 
         if(this.currentCommandContext == null) return;
