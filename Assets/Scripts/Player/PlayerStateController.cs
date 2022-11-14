@@ -7,6 +7,7 @@ public class PlayerStateController : StateController<PlayerState, PlayerStateFac
     public Terminal CurrentTerminal { get; set; }
     [SerializeField] GameEvent _playerDeadEvent;
     [SerializeField] GameEvent _playerDamagedEvent;
+    [SerializeField] GameEvent _pauseEvent;
 
 
 
@@ -47,6 +48,9 @@ public class PlayerStateController : StateController<PlayerState, PlayerStateFac
 
         if (Input.GetKeyDown(KeyCode.O))
             ApplyDamage(1);
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+            _pauseEvent.Raise();
     }
 
 
@@ -64,14 +68,14 @@ public class PlayerStateController : StateController<PlayerState, PlayerStateFac
         if (_damageable)
         {
             _stats.CurrentHealth = Mathf.Max(0f, _stats.CurrentHealth - damage); // Just in case :)
-            Debug.Log("Player took: " + damage + " | HP left: " + _stats.CurrentHealth);
+            //Debug.Log("Player took: " + damage + " | HP left: " + _stats.CurrentHealth);
             if (_stats.CurrentHealth <= 0f && !_dead) 
             {
                 _dead = true;
                 StopAllCoroutines();
                 TransitionToState(this.StateFactory.GetState(States.State.dead));
                 _playerDeadEvent.Raise();
-                Debug.Log("Player DEAD!");
+                //Debug.Log("Player DEAD!");
             }
             else if(!_dead)
             {
