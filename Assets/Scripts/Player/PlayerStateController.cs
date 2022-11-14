@@ -7,6 +7,7 @@ public class PlayerStateController : StateController<PlayerState, PlayerStateFac
     public Terminal CurrentTerminal { get; set; }
     [SerializeField] GameEvent _playerDeadEvent;
     [SerializeField] GameEvent _playerDamagedEvent;
+    [SerializeField] GameEvent _pauseEvent;
 
 
 
@@ -47,6 +48,9 @@ public class PlayerStateController : StateController<PlayerState, PlayerStateFac
 
         if (Input.GetKeyDown(KeyCode.O))
             ApplyDamage(1);
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+            _pauseEvent.Raise();
     }
 
 

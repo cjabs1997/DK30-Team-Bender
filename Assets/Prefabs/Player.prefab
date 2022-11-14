@@ -97,6 +97,8 @@ MonoBehaviour:
   currentState: {fileID: 11400000, guid: efbea69382884db449d17513cc32caba, type: 2}
   stateFactory: {fileID: 11400000, guid: e1826bdec72dcdc439fb89809bfd9eeb, type: 2}
   _playerDeadEvent: {fileID: 11400000, guid: 4cda0ff7360c9a64e8ada58771fae94f, type: 2}
+  _playerDamagedEvent: {fileID: 11400000, guid: 3fde7d6e1af96da40a2964a8d4800fa6, type: 2}
+  _pauseEvent: {fileID: 11400000, guid: 9558e4f2a5aa4234196e5feeb6fcccc4, type: 2}
   _stats: {fileID: 11400000, guid: 04b3ff53e56282f4f8deb7f313f36d92, type: 2}
 --- !u!1 &7287059346027014882
 GameObject:
