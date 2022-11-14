@@ -4,15 +4,36 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private GameObject _controls;
+    [SerializeField] private GameObject _credits;
+
+    public void StartGame()
     {
-        
+        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Quit()
     {
-        
+        Application.Quit();
+    }
+
+    public void ShowControls()
+    {
+        _controls.SetActive(true);
+    }
+
+    public void HideControls()
+    {
+        _controls.SetActive(false);
+    }
+
+    public void ShowCredits()
+    {
+        _credits.SetActive(true);
+    }
+
+    public void HideCredits()
+    {
+        _credits.SetActive(false);
     }
 }
