@@ -68,14 +68,14 @@ public class PlayerStateController : StateController<PlayerState, PlayerStateFac
         if (_damageable)
         {
             _stats.CurrentHealth = Mathf.Max(0f, _stats.CurrentHealth - damage); // Just in case :)
-            Debug.Log("Player took: " + damage + " | HP left: " + _stats.CurrentHealth);
+            //Debug.Log("Player took: " + damage + " | HP left: " + _stats.CurrentHealth);
             if (_stats.CurrentHealth <= 0f && !_dead) 
             {
                 _dead = true;
                 StopAllCoroutines();
                 TransitionToState(this.StateFactory.GetState(States.State.dead));
                 _playerDeadEvent.Raise();
-                Debug.Log("Player DEAD!");
+                //Debug.Log("Player DEAD!");
             }
             else if(!_dead)
             {
