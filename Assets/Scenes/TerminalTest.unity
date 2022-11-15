@@ -1573,6 +1573,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2791586991087175002, guid: e199549df538e3a498202bde506811a8, type: 3}
+      propertyPath: _terminalActivatedAudioEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: a703eceb1f5a4ac428a6329130ad3878, type: 2}
     - target: {fileID: 2791586991087175003, guid: e199549df538e3a498202bde506811a8, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -1603,6 +1607,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3622560157437214247, guid: e199549df538e3a498202bde506811a8, type: 3}
       propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4105444469219553321, guid: e199549df538e3a498202bde506811a8, type: 3}
+      propertyPath: m_Pitch
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -9,9 +9,20 @@ public class TerminalManager : MonoBehaviour
     [SerializeField] private TerminalSet _activatedTerminalSet; // Only terminals that the player has activated
 
     [SerializeField] private GameEvent ResetTerminals;
+    [SerializeField] private GameEvent TerminalsCompleted;
+
+    [SerializeField] private SimpleAudioEvent _terminalFailureAudioEvent;
+    [SerializeField] private SimpleAudioEvent _terminalSuccessAudioEvent;
+    [SerializeField] private SimpleAudioEvent _terminalActivatedAudioEvent;
 
     [SerializeField] private bool _orderMatters;
     private List<Terminal> _correctSequence;
+    private AudioSource _audioSource;
+
+    private void Awake()
+    {
+        _audioSource = this.GetComponent<AudioSource>();
+    }
 
     private void Start()
     {
@@ -31,18 +42,27 @@ public class TerminalManager : MonoBehaviour
                 if(CheckSequence())
                 {
                     Debug.Log("ALL TERMINALS ACTIVATED CORRECTLY");
+                    TerminalsCompleted.Raise();
+                    _terminalSuccessAudioEvent.Play(_audioSource);
+                    return;
                 }
                 else
                 {
                     Debug.Log("WRONG SEQUENCE RESETTING");
                     _activatedTerminalSet.ResetSet();
                     ResetTerminals.Raise();
+                    _terminalFailureAudioEvent.Play(_audioSource);
+                    return;
                 }
-                return;
             }
 
+            TerminalsCompleted.Raise();
+            _terminalSuccessAudioEvent.Play(_audioSource);
             Debug.Log("ALL TERMINALS ACTIVATED");
+            return;
         }
+
+        _terminalActivatedAudioEvent.Play(_audioSource);
     }
 
     private List<Terminal> GenerateSequence()

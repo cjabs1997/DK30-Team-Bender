@@ -51,6 +51,9 @@ MonoBehaviour:
   _terminalSet: {fileID: 11400000, guid: 20099d230b35d4f429a5b69c9f371f73, type: 2}
   _activatedTerminalSet: {fileID: 11400000, guid: 30fb985c46a3c7046bb7d8f4ee7d93d8, type: 2}
   ResetTerminals: {fileID: 11400000, guid: 9fb82c1e7c281ce4289ed8f05f4c50e0, type: 2}
+  TerminalsCompleted: {fileID: 11400000, guid: d02cd9b22f726a140aa7d2e0c2c12741, type: 2}
+  _terminalFailureAudioEvent: {fileID: 11400000, guid: 5c71769dbda7a8542ade3a6a9d5d1332, type: 2}
+  _terminalSuccessAudioEvent: {fileID: 11400000, guid: ba82265104b69564994aa00928080c52, type: 2}
   _orderMatters: 1
 --- !u!114 &2791586991087175000
 MonoBehaviour:

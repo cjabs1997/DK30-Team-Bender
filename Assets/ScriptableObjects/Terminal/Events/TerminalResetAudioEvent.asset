@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0e03cefd114b8549b6484cb1d9799fb, type: 3}
-  m_Name: TerminalActivatedAudio
+  m_Name: TerminalResetAudioEvent
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: 721d67cd4842eb44f92fe4ceb08d5c2f, type: 3}
+  - {fileID: 8300000, guid: ca18730a0c5c15146a3c3c307a38ff3e, type: 3}
   minVolume: 0.7
   maxVolume: 1
-  minPitch: 0.9
-  maxPitch: 1.1
+  minPitch: 0.85
+  maxPitch: 1.15

@@ -7,14 +7,14 @@ using States;
 public class TerminalCompletedState : AreaTerminalState
 {
     public override State stateKey => State.terminalComplete;
-    [SerializeField] private SimpleAudioEvent _terminalActivatedAudio;
+    //[SerializeField] private SimpleAudioEvent _terminalActivatedAudio;
 
     public override void EnterState(WaitInAreaTerminalController controller)
     {
         controller.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         controller.TerminalProgressBar.gameObject.SetActive(false);
         controller.Terminal.activatedTerminalSet.AddValue(controller.Terminal);
-        _terminalActivatedAudio.Play(controller.AudioSource);
+        //_terminalActivatedAudio.Play(controller.AudioSource);
         controller.Terminal.TerminalCompleted.Raise();
     }
 }
