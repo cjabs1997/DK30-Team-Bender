@@ -15,7 +15,7 @@ MonoBehaviour:
   _terminalVelocity: 100
   _initialJump: 7
   _maxJumpTime: 0.25
-  _gravity: 20
+  _gravity: 40
   _maxHorizontalForceInAir: 15
   _groundMask:
     useTriggers: 0
@@ -31,8 +31,8 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  _jumpDelay: 0.15
-  _maxSpeed: 8
+  _jumpDelay: 0.2
+  _maxSpeed: 6
   _maxHorizontalGroundedForce: 95
   _stopDistance: 0.25
   _maxHealth: 6
