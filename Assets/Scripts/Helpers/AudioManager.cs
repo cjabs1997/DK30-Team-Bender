@@ -15,11 +15,11 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        _chillLoop.volume = 1;
         _medLoop.volume = 0;
         _intenseLoop.volume = 0;
 
         _currentlyPlaying = _chillLoop;
+        StartCoroutine(IntroFade()); // If we get a call before this finishes there's a bug but I really don't think it'll happen
         _currentIntensity = 0;
     }
 
@@ -53,13 +53,28 @@ public class AudioManager : MonoBehaviour
         return;
     }
 
-    private IEnumerator FadeTransition(AudioSource source)
+    private IEnumerator IntroFade()
     {
         float timeElapsed = 0f;
 
-        while(_currentlyPlaying.volume > 0)
+        while (_currentlyPlaying.volume < 1)
         {
-            _currentlyPlaying.volume = Mathf.Lerp(1, 0, timeElapsed / _timeToFade);
+            _currentlyPlaying.volume = Mathf.Lerp(0, 1, timeElapsed / 2f);
+
+            timeElapsed += Time.deltaTime;
+
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    private IEnumerator FadeTransition(AudioSource source)
+    {
+        float timeElapsed = 0f;
+        float startVol = _currentlyPlaying.volume;
+
+        while (_currentlyPlaying.volume > 0)
+        {
+            _currentlyPlaying.volume = Mathf.Lerp(startVol, 0, timeElapsed / _timeToFade);
             source.volume = Mathf.Lerp(0, 1, timeElapsed / _timeToFade);
 
             timeElapsed += Time.deltaTime;

@@ -858,7 +858,7 @@ AudioSource:
   m_GameObject: {fileID: 839578150}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 5698020320814609693, guid: 5ad7d998ee2740642a55d96b6041863b, type: 2}
   m_audioClip: {fileID: 8300000, guid: 608830e45494e1d42ac54314949d0840, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0
@@ -954,7 +954,7 @@ AudioSource:
   m_GameObject: {fileID: 839578150}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 5698020320814609693, guid: 5ad7d998ee2740642a55d96b6041863b, type: 2}
   m_audioClip: {fileID: 8300000, guid: eba78bf24be9d7d4a95cbf9d40af8de4, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0
@@ -1050,7 +1050,7 @@ AudioSource:
   m_GameObject: {fileID: 839578150}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 5698020320814609693, guid: 5ad7d998ee2740642a55d96b6041863b, type: 2}
   m_audioClip: {fileID: 8300000, guid: 28a7b5062dbc1d0429363e58cf47d407, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0
@@ -1180,7 +1180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63b10d4bc54343d4ba561b856d670b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: 4cda0ff7360c9a64e8ada58771fae94f, type: 2}
+  Event: {fileID: 11400000, guid: bd7808e51725a9c49975e202a77aad16, type: 2}
   Response:
     m_PersistentCalls:
       m_Calls:
@@ -1219,7 +1219,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
