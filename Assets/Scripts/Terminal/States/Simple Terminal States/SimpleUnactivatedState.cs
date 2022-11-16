@@ -9,7 +9,7 @@ public class SimpleUnactivatedState : SimpleTerminalState
 
     public override void EnterState(SimpleTerminalController controller)
     {
-        controller.SpriteRenderer.color = Color.red;
+        controller.SpriteRenderer.color = Color.white;
     }
 
     public override void StateOnTriggerEnter2D(SimpleTerminalController controller, Collider2D collision)

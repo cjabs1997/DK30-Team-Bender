@@ -112,7 +112,7 @@ RectTransform:
   m_GameObject: {fileID: 1435640721863203598}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.25, y: 1.25, z: 1}
+  m_LocalScale: {x: 1.6, y: 1.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1435640721941896363}
@@ -167,8 +167,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fillImage: {fileID: 1435640722431580730}
   maskImage: {fileID: 1435640721941896365}
-  startingColor: {r: 0, g: 0.19215687, b: 0.058823533, a: 0.30588236}
-  filledColor: {r: 0, g: 0.735849, b: 0.062865265, a: 1}
+  startingColor: {r: 1, g: 1, b: 1, a: 0.30588236}
+  filledColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1435640721931265456
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,6 +181,7 @@ GameObject:
   - component: {fileID: 1435640721931265461}
   - component: {fileID: 1435640721931265458}
   - component: {fileID: 1435640721931265460}
+  - component: {fileID: 6119448926692999711}
   m_Layer: 0
   m_Name: TerminalControllerAndHitbox
   m_TagString: Untagged
@@ -286,6 +287,35 @@ MonoBehaviour:
   currentState: {fileID: 11400000, guid: 93d4a73012a93c346b39ee871212fe81, type: 2}
   stateFactory: {fileID: 11400000, guid: c94aa16147b8f464185f50af6437e1df, type: 2}
   _terminalProgressBar: {fileID: 1435640721863203584}
+  _terminalSprite: {fileID: 1435640721068276952}
+--- !u!114 &6119448926692999711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1435640721931265456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b10d4bc54343d4ba561b856d670b36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 4cda0ff7360c9a64e8ada58771fae94f, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1435640721931265460}
+        m_TargetAssemblyTypeName: WaitInAreaTerminalController, Assembly-CSharp
+        m_MethodName: TransitionToState
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 93d4a73012a93c346b39ee871212fe81, type: 2}
+          m_ObjectArgumentAssemblyTypeName: AreaTerminalState, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1435640721941896360
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,7 +384,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2413806693520163455, guid: 91757eff0bba1944c991a08e3409f182, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1d92242d828688347a7ac0c77fc3328a, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -614,14 +644,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8773585, g: 0.07863116, b: 0.07863116, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2413806693520163455, guid: 91757eff0bba1944c991a08e3409f182, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1d92242d828688347a7ac0c77fc3328a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

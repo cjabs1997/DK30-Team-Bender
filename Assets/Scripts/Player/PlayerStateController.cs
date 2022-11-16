@@ -16,6 +16,7 @@ public class PlayerStateController : StateController<PlayerState, PlayerStateFac
     [SerializeField] private PlayerStats _stats;
     private Color _startingColor { get; set; }
     private SpriteRenderer _spriteRenderer;
+    public SpriteRenderer SpriteRenderer => _spriteRenderer;
 
     protected override void Awake()
     {
