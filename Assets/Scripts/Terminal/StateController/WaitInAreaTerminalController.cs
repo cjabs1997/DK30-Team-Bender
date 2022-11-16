@@ -8,6 +8,10 @@ public class WaitInAreaTerminalController : StateController<AreaTerminalState, W
     [SerializeField] private TerminalProgressBar _terminalProgressBar;
     public TerminalProgressBar TerminalProgressBar => _terminalProgressBar;
 
+    [SerializeField] private SpriteRenderer _terminalSprite;
+    public SpriteRenderer TerminalSprite => _terminalSprite;
+
+
     public WaitInAreaTerminal Terminal { get; private set; }
     public float Progress { get; set; }
 

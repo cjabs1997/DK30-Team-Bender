@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c6a0cada339cbc419a8db68770904f6, type: 3}
   m_Name: SimpleActivatedState
   m_EditorClassIdentifier: 
-  _terminalActivatedAudio: {fileID: 11400000, guid: a703eceb1f5a4ac428a6329130ad3878, type: 2}
+  _activatedColor: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 1}

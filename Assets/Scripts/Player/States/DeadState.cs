@@ -14,7 +14,8 @@ public class DeadState : PlayerState
     public override void EnterState(PlayerStateController controller)
     {
         _grounded = MovementHelpers.CheckGround(controller.Collider2D, stats.GroundMask);
-
+        controller.SpriteRenderer.color = Color.black;
+        controller.SpriteRenderer.gameObject.transform.eulerAngles = new Vector3(0, 0, -90);
         if(_grounded)
             controller.Rigidbody2D.velocity = new Vector2(0, controller.Rigidbody2D.velocity.y);
     }
