@@ -172,6 +172,7 @@ public class HazardProjectile : HazardObject
 
     void OnTriggerEnter2D(Collider2D collider)
     {
+        if(this.m_RigidBody == null) return;
         if(this.m_RigidBody.IsTouchingLayers(this.collisionLayers))
         {
             if(collider.TryGetComponent<PlayerStateController>(out PlayerStateController stateController))

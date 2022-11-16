@@ -72,7 +72,6 @@ public class HazardTrigger : MonoBehaviour
             // this.onPlayerEnter.Raise();
             if(!this.waiting)
                 StartCoroutine(WaitForTrigger(collider));
-            Debug.Log("ENTER");
         }
     }
 
@@ -83,7 +82,6 @@ public class HazardTrigger : MonoBehaviour
         {
             if(this.onPlayerExit)
                 this.onPlayerExit.Raise();
-            Debug.Log("EXIT");
         }
     }
 }

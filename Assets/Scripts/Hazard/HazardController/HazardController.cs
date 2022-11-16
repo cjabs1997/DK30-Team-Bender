@@ -54,7 +54,6 @@ public class HazardController : MonoBehaviour
     public void ToggleLaserOff()
     {
         HazardLaser[] lasers = this.GetComponentsInChildren<HazardLaser>();
-        Debug.Log(lasers.Length);
         if(lasers.Length > 0)
         {
             foreach(var laser in lasers)
