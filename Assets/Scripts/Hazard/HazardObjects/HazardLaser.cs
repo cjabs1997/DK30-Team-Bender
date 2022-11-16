@@ -19,8 +19,6 @@ public class HazardLaser : HazardObject
     private LayerMask raycastLayerMask;
     public LayerMask RaycastLayerMask => raycastLayerMask;
 
-    // private Quaternion og_rotation;
-
     private float getCastedDistance()
     {
         float castedDistance;
@@ -74,8 +72,6 @@ public class HazardLaser : HazardObject
         else
         {
             this.audioSource.Stop();
-            // var t = this.transform.parent.transform;
-            // t.rotation = og_rotation;
             Destroy(gameObject);
         }
         this.currentCommandContext = null;
@@ -87,7 +83,6 @@ public class HazardLaser : HazardObject
         
         if(!this.lineRenderer.enabled)
         {
-            Debug.Log("Linerenderer null");
             this.transform.Rotate(xAngle: 0, 0, commandAngle);
             this.castLaser();
             this.currentCommandContext = null;
@@ -152,7 +147,6 @@ public class HazardLaser : HazardObject
         lineCollider = GetComponent<EdgeCollider2D>();
         lineRenderer.alignment = LineAlignment.TransformZ;
         audioSource = GetComponent<AudioSource>();
-        // og_rotation = this.transform.parent.transform.rotation;
     }
 
     void FixedUpdate()
@@ -160,25 +154,27 @@ public class HazardLaser : HazardObject
         HandleExecuteCommand();
     }
     
-    // void OnCollisionEnter2D(Collision2D collider)
-    // {
-    //     Debug.Log("Hit");
-    //     Debug.Log(collider);
-    // }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        var collider = collision.collider;
+        if(collider.TryGetComponent<PlayerStateController>(out PlayerStateController stateController))
+        {
+            stateController.ApplyDamage(this.DamageToApply);
+        }
+    }
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("Hit");
-        Debug.Log(collider);
+        // Debug.Log("Laser Hit");
+        // Debug.Log(collider);
         // TODO
         // call collider's function with damage as argument
         // if(collider.GetComponent<HazardProjectile>() == null)
         //     Destroy(this.gameObject);
 
-        // if(collider.TryGetComponent<StateController>(out StateController stateController))
-        // {
-        //     // stateController.ApplyDamage(float);
-        //     // public bool ApplyDamage(float damage);
-        // }
+        if(collider.TryGetComponent<PlayerStateController>(out PlayerStateController stateController))
+        {
+            stateController.ApplyDamage(this.DamageToApply);
+        }
     }
 }

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7392b8cb5dc587546836ce95189de027, type: 3}
   m_Name: FireFast
   m_EditorClassIdentifier: 
-  speed: 25
+  speed: 12

@@ -11,11 +11,17 @@ public class HazardController : MonoBehaviour
     private bool loop;
     public bool Loop => loop;
     [SerializeField]
+    private bool startFiring;
+    public bool StartFiring => startFiring;
+    [SerializeField]
     private SimpleAudioEvent onFireSound;
     public SimpleAudioEvent OnFireSound => onFireSound;
     [SerializeField]
     private Sequence[] hazardSequences;
     public Sequence[] HazardSequences => hazardSequences;
+    [SerializeField]
+    private bool test;
+    public bool Test => test;
     #endregion
 
     private bool firing;
@@ -30,13 +36,14 @@ public class HazardController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         this.canFire = true;
-        this.lastFireTime = Time.realtimeSinceStartup  - this.delayBetweenFire;
-        this.firing = false;
+        this.lastFireTime = Time.realtimeSinceStartup - this.delayBetweenFire;
+        this.firing = this.startFiring;
     }
 
     public void ToggleFiringOff()
     {
         this.firing = false;
+        // this.lastFireTime = Time.realtimeSinceStartup - this.delayBetweenFire;
     }
 
     public void ToggleFiringOn()
@@ -47,6 +54,7 @@ public class HazardController : MonoBehaviour
     public void ToggleLaserOff()
     {
         HazardLaser[] lasers = this.GetComponentsInChildren<HazardLaser>();
+        Debug.Log(lasers.Length);
         if(lasers.Length > 0)
         {
             foreach(var laser in lasers)
@@ -113,10 +121,17 @@ public class HazardController : MonoBehaviour
             if(!this.loop)
                 this.ToggleFiringOff();
         }
+
     }
 
     void Update()
     {
-        
+        if(this.test)
+        {
+            if(Input.GetMouseButtonDown(0))
+            {
+                this.Fire();
+            }
+        }
     }
 }

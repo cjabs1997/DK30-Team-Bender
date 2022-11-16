@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: MoveTo
   m_EditorClassIdentifier: 
   angle: -145.17157
-  speed: 15
+  speed: 10

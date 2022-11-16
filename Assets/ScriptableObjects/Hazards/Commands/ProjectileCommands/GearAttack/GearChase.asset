@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: GearChase
   m_EditorClassIdentifier: 
   speed: 30
-  chaseTarget: 0
-  chaseTimelimit: 2
-  slowArrival: 0
-  slowArrivalRadius: 0
-  timeLimit: 2
+  chaseTarget: 1
+  chaseTimelimit: 4
+  slowArrival: 1
+  slowArrivalRadius: 1
+  timeLimit: 30
+  maxSteeringForce: 18

@@ -5,7 +5,6 @@ public class HazardProjectile : HazardObject
 {
     [SerializeField] bool rotate;
     [SerializeField] float degreesPerSecond;
-    [SerializeField] float maxSteeringForce;
 
     [SerializeField]
     private SimpleAudioEvent soundOnMove;
@@ -101,7 +100,7 @@ public class HazardProjectile : HazardObject
         }
         Vector2 steering = (forceVector - m_RigidBody.velocity) * Time.deltaTime;
         Vector2 steerForce = m_RigidBody.mass * steering;
-        steerForce = Vector2.ClampMagnitude(forceVector, maxSteeringForce);
+        steerForce = Vector2.ClampMagnitude(forceVector, command.MaxSteeringForce);
         m_RigidBody.AddForce(steerForce);
     }
 
@@ -173,11 +172,16 @@ public class HazardProjectile : HazardObject
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("Hit");
-        Debug.Log(collider);
-        if(collider.IsTouchingLayers(this.collisionLayers))
+        if(this.m_RigidBody.IsTouchingLayers(this.collisionLayers))
         {
-            Destroy(this.gameObject);
+            if(collider.TryGetComponent<PlayerStateController>(out PlayerStateController stateController))
+            {
+                var hitPlayer = stateController.ApplyDamage(this.DamageToApply);
+                if(hitPlayer)
+                    Destroy(this.gameObject);
+            }else{
+                Destroy(this.gameObject);
+            }
         }
         // TODO
         // call collider's function with damage as argument
@@ -189,6 +193,7 @@ public class HazardProjectile : HazardObject
         //     // stateController.ApplyDamage(float);
         //     // public bool ApplyDamage(float damage);
         // }
+        
     }
 
     void Update()

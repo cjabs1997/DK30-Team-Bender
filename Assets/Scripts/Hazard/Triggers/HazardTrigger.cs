@@ -54,7 +54,8 @@ public class HazardTrigger : MonoBehaviour
                 this.soundOnTrigger.Play(this.audioSource);
                 yield return new WaitWhile(() => this.audioSource.isPlaying);
             }
-            this.onPlayerEnter.Raise();
+            if(this.onPlayerEnter)
+                this.onPlayerEnter.Raise();
         }
         this.waiting = false;
         if(this.triggerOnce)
@@ -80,7 +81,8 @@ public class HazardTrigger : MonoBehaviour
         if(!this.canTrigger) return;
         if(collider.TryGetComponent<PlayerStateController>(out PlayerStateController stateController))
         {
-            this.onPlayerExit.Raise();
+            if(this.onPlayerExit)
+                this.onPlayerExit.Raise();
             Debug.Log("EXIT");
         }
     }
