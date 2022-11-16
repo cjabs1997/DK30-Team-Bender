@@ -154,25 +154,27 @@ public class HazardLaser : HazardObject
         HandleExecuteCommand();
     }
     
-    // void OnCollisionEnter2D(Collision2D collider)
-    // {
-    //     Debug.Log("Hit");
-    //     Debug.Log(collider);
-    // }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        var collider = collision.collider;
+        if(collider.TryGetComponent<PlayerStateController>(out PlayerStateController stateController))
+        {
+            stateController.ApplyDamage(this.DamageToApply);
+        }
+    }
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("Hit");
-        Debug.Log(collider);
+        // Debug.Log("Laser Hit");
+        // Debug.Log(collider);
         // TODO
         // call collider's function with damage as argument
         // if(collider.GetComponent<HazardProjectile>() == null)
         //     Destroy(this.gameObject);
 
-        // if(collider.TryGetComponent<StateController>(out StateController stateController))
-        // {
-        //     // stateController.ApplyDamage(float);
-        //     // public bool ApplyDamage(float damage);
-        // }
+        if(collider.TryGetComponent<PlayerStateController>(out PlayerStateController stateController))
+        {
+            stateController.ApplyDamage(this.DamageToApply);
+        }
     }
 }

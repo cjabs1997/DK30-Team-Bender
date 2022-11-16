@@ -134,7 +134,6 @@ public class HazardProjectile : HazardObject
                     }
                 }
             }
-            Debug.Log(this.currentCommandContext.Command);
         }
 
         if(this.currentCommandContext == null) return;
@@ -173,11 +172,16 @@ public class HazardProjectile : HazardObject
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("Hit");
-        Debug.Log(collider);
-        if(collider.IsTouchingLayers(this.collisionLayers))
+        if(this.m_RigidBody.IsTouchingLayers(this.collisionLayers))
         {
-            Destroy(this.gameObject);
+            if(collider.TryGetComponent<PlayerStateController>(out PlayerStateController stateController))
+            {
+                var hitPlayer = stateController.ApplyDamage(this.DamageToApply);
+                if(hitPlayer)
+                    Destroy(this.gameObject);
+            }else{
+                Destroy(this.gameObject);
+            }
         }
         // TODO
         // call collider's function with damage as argument
@@ -189,6 +193,7 @@ public class HazardProjectile : HazardObject
         //     // stateController.ApplyDamage(float);
         //     // public bool ApplyDamage(float damage);
         // }
+        
     }
 
     void Update()

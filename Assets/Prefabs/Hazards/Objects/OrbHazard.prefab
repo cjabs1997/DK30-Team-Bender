@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -9104966420340328939}
   - component: {fileID: 7407024872407583140}
   - component: {fileID: 3247399489823747670}
-  m_Layer: 11
+  m_Layer: 8
   m_Name: OrbHazard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 6795856549782781425}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.057, y: 0.154, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -99,7 +99,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 4627daad23f124e47932fd5f824990ed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -123,10 +123,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d989f42a540d674c8f88b00ce16bfc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageToApply: 0.5
   rotate: 1
   degreesPerSecond: 360
-  maxSteeringForce: 25
   soundOnMove: {fileID: 11400000, guid: d5cd2c33b6a73bb4ea3c9eb37eb14cb6, type: 2}
+  collisionLayers:
+    serializedVersion: 2
+    m_Bits: 17
 --- !u!70 &8101355926224478779
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -322,7 +325,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.52
+      scalar: 1.07
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -429,7 +432,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.3679245, g: 0.08139268, b: 0, a: 1}
+      maxColor: {r: 0.6037736, g: 0.17340192, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -491,7 +494,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.06
+      scalar: 0.27
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -954,7 +957,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.1
+      value: 0.44
       mode: 0
       spread: 0
       speed:

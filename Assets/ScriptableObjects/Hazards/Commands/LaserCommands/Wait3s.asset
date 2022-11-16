@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e0acaae991e16e438e70db839731b1b, type: 3}
   m_Name: Wait3s
   m_EditorClassIdentifier: 
-  seconds: 0
+  seconds: 3

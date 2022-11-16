@@ -63,7 +63,7 @@ Transform:
   m_GameObject: {fileID: 8219121256179385999}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5015467237202495626}
@@ -131,7 +131,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 3a089b86078b10540b161e3d10d7f11f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -155,13 +155,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d989f42a540d674c8f88b00ce16bfc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageToApply: 0
-  rotate: 1
+  damageToApply: 0.5
+  rotate: 0
   degreesPerSecond: 360
   soundOnMove: {fileID: 0}
   collisionLayers:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 17
 --- !u!198 &7140322422170850031
 ParticleSystem:
   m_ObjectHideFlags: 0

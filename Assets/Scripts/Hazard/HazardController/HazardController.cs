@@ -36,13 +36,14 @@ public class HazardController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         this.canFire = true;
-        this.lastFireTime = Time.realtimeSinceStartup  - this.delayBetweenFire;
+        this.lastFireTime = Time.realtimeSinceStartup - this.delayBetweenFire;
         this.firing = this.startFiring;
     }
 
     public void ToggleFiringOff()
     {
         this.firing = false;
+        // this.lastFireTime = Time.realtimeSinceStartup - this.delayBetweenFire;
     }
 
     public void ToggleFiringOn()
@@ -53,6 +54,7 @@ public class HazardController : MonoBehaviour
     public void ToggleLaserOff()
     {
         HazardLaser[] lasers = this.GetComponentsInChildren<HazardLaser>();
+        Debug.Log(lasers.Length);
         if(lasers.Length > 0)
         {
             foreach(var laser in lasers)
