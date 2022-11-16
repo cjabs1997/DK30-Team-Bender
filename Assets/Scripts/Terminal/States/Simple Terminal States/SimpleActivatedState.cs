@@ -6,7 +6,7 @@ using UnityEngine;
 public class SimpleActivatedState : SimpleTerminalState
 {
     public override States.State stateKey => States.State.playerInRange; // Bad name, didn't feel like adding a new one :P
-    [SerializeField] private SimpleAudioEvent _terminalActivatedAudio;
+    //[SerializeField] private SimpleAudioEvent _terminalActivatedAudio;
 
     public override void EnterState(SimpleTerminalController controller)
     {
@@ -14,6 +14,6 @@ public class SimpleActivatedState : SimpleTerminalState
 
         controller.Terminal.activatedTerminalSet.AddValue(controller.Terminal);
         controller.Terminal.TerminalCompleted.Raise();
-        _terminalActivatedAudio.Play(controller.AudioSource);
+        //_terminalActivatedAudio.Play(controller.AudioSource);
     }
 }
