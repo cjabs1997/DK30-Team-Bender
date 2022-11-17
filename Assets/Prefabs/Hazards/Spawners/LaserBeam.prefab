@@ -163,16 +163,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ead228f730911894788f19d577efc993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cycles: 0
-  cyclesToFire: 0
+  delayBetweenFire: 15
+  loop: 1
+  startFiring: 0
+  onFireSound: {fileID: 11400000, guid: 4af1800af5a92f2439a04f590775b488, type: 2}
   hazardSequences:
   - sequenceSteps:
     - attack: {fileID: 11400000, guid: 751b0e54b07cf99489b13d85a467ba1f, type: 2}
       toTransform: {fileID: 1883630259391548802}
     projectilePrefab: {fileID: 8779585898324489374, guid: cd012f382d98f984caf3b2583593eef1, type: 3}
-  onFireSound: {fileID: 11400000, guid: 4af1800af5a92f2439a04f590775b488, type: 2}
-  loop: 1
-  delayBetweenFire: 15
+  test: 0
 --- !u!95 &1883630260495778301
 Animator:
   serializedVersion: 4
@@ -202,7 +202,7 @@ AudioSource:
   m_GameObject: {fileID: 1883630260495778297}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -711218998042430339, guid: 5ad7d998ee2740642a55d96b6041863b, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1

@@ -9,6 +9,7 @@ public class LevelExit : MonoBehaviour
     private AudioSource _audioSource;
     [SerializeField] int _sceneIndexToLoad = 0;
     [SerializeField] private SimpleAudioEvent _closeAudio;
+    [SerializeField] private GameEvent _levelExit;
 
     private void Awake()
     {
@@ -42,7 +43,8 @@ public class LevelExit : MonoBehaviour
         if(collision.CompareTag("Player"))
         {
             // Move to the next level...
-            UnityEngine.SceneManagement.SceneManager.LoadScene(_sceneIndexToLoad);
+            //UnityEngine.SceneManagement.SceneManager.LoadScene(_sceneIndexToLoad);
+            _levelExit.Raise();
         }
     }
 }

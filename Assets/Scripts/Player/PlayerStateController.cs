@@ -39,6 +39,8 @@ public class PlayerStateController : StateController<PlayerState, PlayerStateFac
 
     private void Update()
     {
+        this.SpriteRenderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
+
         currentState.StateUpdate(this);
 
         if (Input.GetKeyDown(KeyCode.E) && CurrentTerminal != null)

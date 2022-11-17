@@ -232,7 +232,7 @@ AudioSource:
   m_GameObject: {fileID: 5706245409625576884}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -711218998042430339, guid: 5ad7d998ee2740642a55d96b6041863b, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -333,12 +333,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayBetweenFire: 5
   loop: 1
+  startFiring: 0
   onFireSound: {fileID: 11400000, guid: 4af1800af5a92f2439a04f590775b488, type: 2}
   hazardSequences:
   - sequenceSteps:
     - attack: {fileID: 11400000, guid: ee5f57e24eae3d04b86d648fb7465289, type: 2}
       toTransform: {fileID: 0}
     projectilePrefab: {fileID: 8219121256179385999, guid: 9d6ae6d403ac2d845a21305c0147e5ee, type: 3}
+  test: 0
 --- !u!1 &5706245410691923976
 GameObject:
   m_ObjectHideFlags: 0

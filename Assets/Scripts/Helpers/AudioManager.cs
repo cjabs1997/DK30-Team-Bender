@@ -9,6 +9,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource _chillLoop;
     [SerializeField] private AudioSource _medLoop;
     [SerializeField] private AudioSource _intenseLoop;
+    [SerializeField] private PlayerStats _stats;
+
 
     private AudioSource _currentlyPlaying;
     private int _currentIntensity;
@@ -51,6 +53,22 @@ public class AudioManager : MonoBehaviour
         }
 
         return;
+    }
+
+    public void PlayerHealthIntensityUpdate()
+    {
+        if (_currentIntensity >= 2)
+            return;
+
+        if(_stats.CurrentHealth / _stats.MaxHealth < 0.3f )
+        {
+            SetIntensity(2);
+        }
+        else if (_stats.CurrentHealth / _stats.MaxHealth < 0.7f)
+        {
+            SetIntensity(1);
+        }
+
     }
 
     private IEnumerator IntroFade()
