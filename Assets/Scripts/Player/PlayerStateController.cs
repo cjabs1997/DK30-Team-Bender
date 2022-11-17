@@ -49,8 +49,8 @@ public class PlayerStateController : StateController<PlayerState, PlayerStateFac
             CurrentTerminal = null;
         }
 
-        if (Input.GetKeyDown(KeyCode.O))
-            ApplyDamage(1);
+        //if (Input.GetKeyDown(KeyCode.O))
+            //ApplyDamage(1);
 
         if (Input.GetKeyDown(KeyCode.Escape))
             _pauseEvent.Raise();

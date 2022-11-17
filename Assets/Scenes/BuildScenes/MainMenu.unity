@@ -1426,12 +1426,9 @@ MonoBehaviour:
 
     WASD - Move
 
-    E - Interact
-
     Space (hold) - Jump
 
-    ESC
-    - Pause
+    ESC - Pause
 
 '
   m_isRightToLeft: 0
