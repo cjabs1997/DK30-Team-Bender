@@ -35,5 +35,6 @@ MonoBehaviour:
   _maxSpeed: 6
   _maxHorizontalGroundedForce: 95
   _stopDistance: 0.25
-  _maxHealth: 3.5
+  _maxHealth: 7
+  _maxHealthHard: 3.5
   _damageCooldown: 0.75

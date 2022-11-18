@@ -23,7 +23,7 @@ public class PlayerStateController : StateController<PlayerState, PlayerStateFac
         base.Awake();
         _spriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
         _damageable = true;
-        _stats.CurrentHealth = _stats.MaxHealth; // If we are loading new scenes this will need to get moved somewhere else...
+        //_stats.CurrentHealth = _stats.MaxHealth; // If we are loading new scenes this will need to get moved somewhere else...
     }
 
     private void Start()

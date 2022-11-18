@@ -6,10 +6,18 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField] private GameObject _controls;
     [SerializeField] private GameObject _credits;
+    [SerializeField] private PlayerStats _playerStats;
 
     public void StartGame()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+        _playerStats.CurrentHealth = _playerStats.MaxHealth;
+    }
+
+    public void StartGameHard()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+        _playerStats.CurrentHealth = _playerStats.MaxHealthHard;
     }
 
     public void Quit()

@@ -54,6 +54,10 @@ public class PlayerStats : ScriptableObject
     [SerializeField] private float _maxHealth;
     public float MaxHealth { get { return _maxHealth; } }
 
+    [Tooltip("Maximum amount of health for the player")]
+    [SerializeField] private float _maxHealthHard;
+    public float MaxHealthHard { get { return _maxHealthHard; } }
+
     public float CurrentHealth { get; set; }
 
     [Tooltip("Time before the player can take damage again")]

@@ -3237,7 +3237,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5706245409625576889, guid: 090ca6aecf0138a498439a60468166e4, type: 3}
       propertyPath: delayBetweenFire
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 5706245409625576889, guid: 090ca6aecf0138a498439a60468166e4, type: 3}
       propertyPath: hazardSequences.Array.data[0].sequenceSteps.Array.data[0].attack
@@ -3664,7 +3664,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5706245409625576889, guid: 090ca6aecf0138a498439a60468166e4, type: 3}
       propertyPath: delayBetweenFire
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5706245409625576889, guid: 090ca6aecf0138a498439a60468166e4, type: 3}
       propertyPath: hazardSequences.Array.data[0].sequenceSteps.Array.data[0].attack
