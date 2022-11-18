@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a115f9f114ded4147abdddd519009dd6, type: 3}
-  m_Name: LaserBeamFlash2
+  m_Name: LaserBeamAttackFast
   m_EditorClassIdentifier: 
   commands:
   - {fileID: 11400000, guid: 2f2582e0281062849b7953ddf371db3a, type: 2}
+  - {fileID: 11400000, guid: fc6b9e79d0f404449ba5d914e9f8b36f, type: 2}
   - {fileID: 11400000, guid: 6d124b0aec3883f48b5a937c2a908d8e, type: 2}
   - {fileID: 11400000, guid: 110e22f6cd38b76449b20ae333b25dd1, type: 2}

@@ -17,5 +17,5 @@ MonoBehaviour:
   chaseTimelimit: 0
   slowArrival: 1
   slowArrivalRadius: 3
-  timeLimit: 10
+  timeLimit: 3
   maxSteeringForce: 25
